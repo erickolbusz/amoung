@@ -1775,7 +1775,6 @@ function searchSelector(cell, rowIndex, cellIndex) {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------- TABLE RENDERING
 
 async function renderTable(tier=globalCurrentTier,rerender=true,callbackFunc=null) {
-    console.log('rerendering');
     globalPageReady = false;
 
     let columns = [ //CHECK THAT THE COLUMN ORDER AGREES WITH SEARCHSELECTOR
@@ -2032,7 +2031,6 @@ async function dbUpdateMapList(url) {
                         //check if they're the same
                         mapDiffs = isMapUpdated(currentMap,newMap);
                         if (!mapDiffs.allSame) {
-                            console.log("UPDATING A MAP", currentMap.mapName);
 
                             let renameMapTodo = (!mapDiffs.mapName);
                             let deleteStageTodo = (!mapDiffs.mapType) || (!mapDiffs.s_count);
@@ -2077,7 +2075,6 @@ async function dbUpdateMapList(url) {
 
                                 //now we need to update the todos...
                                 let todoUpdates = [];
-                                console.log("getting all todos for (old) mapname", oldMapName);
 
                                 dbGetTodosByMap(oldMapName,newMap.mapName).then((allInfo) => { if (Array.isArray(allInfo) && Array.isArray(allInfo[0])) {
                                     let allTodos = allInfo[0];
@@ -3739,7 +3736,6 @@ document.getElementById("SettingsSaveButton").onclick = function() {
         let settingVal = setting[1];
 
         if (oldSettings[settingKey] != settingVal) { //it's different
-            console.log(`updating key ${settingKey} from ${oldSettings[settingKey]} to ${settingVal}`);
             window[settingKey] = settingVal;
             localStorage.setItem(settingKey, settingVal);
             oldSettings[settingKey] = settingVal; //so now old = new
