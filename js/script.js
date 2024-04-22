@@ -784,12 +784,14 @@ async function dbGetAllTodos() {
 //-------------------------------------------------------------- GROUPS
 
 async function dbChangeGroup(mapName,dGroup) {
+    console.log(mapName,dGroup);
     if (db) {
         return new Promise(function(resolve,reject) {
             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
             const requestGet = mapTable.index("mapName").get(mapName);
 
             requestGet.onsuccess = function() {
+                console.log(requestGet);
                 if (requestGet.result !== undefined) {
                     let mapInfo = requestGet.result;
                     let groupi = groupLabels.indexOf(mapInfo.group);
@@ -826,7 +828,7 @@ async function dbChangeGroup(mapName,dGroup) {
     else { return -1; }
 }
 function increaseGroup(mapName) {
-    dbChangeGroup(mapName,1).then((res) => { if (res === "Success") {
+    dbChangeGroup(mapName,1).then((res) => { console.log('result',res); if (res === "Success") {
         renderTable(tier=globalCurrentTier,rerender=true);
     }});
 }
@@ -1775,6 +1777,7 @@ function searchSelector(cell, rowIndex, cellIndex) {
 //-------------------------------------------------------------------------------------------------------------------------------------------------------- TABLE RENDERING
 
 async function renderTable(tier=globalCurrentTier,rerender=true,callbackFunc=null) {
+    console.log('rerendering');
     globalPageReady = false;
 
     let columns = [ //CHECK THAT THE COLUMN ORDER AGREES WITH SEARCHSELECTOR
