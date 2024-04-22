@@ -2222,9 +2222,11 @@ function getBackToPage(pageNum) {
     //this fires every single time the table visual changes
     //INCLUDING when we change pages
     //so we only need to have one click call here and it'll run as many as needed
+    console.log("we are on", currentPage, "want to get to", pageNum)l
     if (document.getElementsByClassName("gridjs-currentPage").length == 0) { globalPageReady = true; return; } //blank table, just shows Previous | Next
     let currentPage = document.getElementsByClassName("gridjs-currentPage")[0].title.split(" ")[1];
     if (currentPage == pageNum) { //on the right page, exit
+        console.log("pages: all good");
         globalPageReady = true;
     }
     else {
@@ -2250,15 +2252,19 @@ function getBackToPage(pageNum) {
 
         switch (minDistancei) {
             case 0: //go to page 1
+                console.log("pages: clicking first");
                 buttonToClick = paginationButtons[1];
                 break;
             case 1: //go to last page
+                console.log("pages: clicking last");
                 buttonToClick = paginationButtons[paginationButtons.length-2];
                 break;
             case 2: //page--
+                console.log("pages: clicking prev");
                 buttonToClick = paginationButtons[0];
                 break;
             case 3: //page++
+                console.log("pages: clicking next");
                 buttonToClick = paginationButtons[paginationButtons.length-1];
                 break;
             default:
@@ -2266,7 +2272,7 @@ function getBackToPage(pageNum) {
         }
         humanClickingPagination = false;
 
-        console.log(buttonToClick);
+        console.log(paginationButtons, buttonToClick);
         // waitForElm(".gridjs-pages").then((allpages) => {
         if (buttonToClick) { buttonToClick.click(); }
 
