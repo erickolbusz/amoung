@@ -1,9 +1,425 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>ඞ</title>
-</head>
-<body>
-ඞ
-</body>
-</html>
+<html lang="en">
+    <head>
+        <title>Surf Checklist</title>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+        <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+        <script src="https://unpkg.com/gridjs@6.2.0/dist/gridjs.umd.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script type="module" src="https://unpkg.com/jss@10.10.0/dist/jss.js"></script>
+
+        <link type="text/css" rel="stylesheet" href="static/style.css" /> 
+
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <div id="TitleDiv" class="brand-logo">KSF Checklist</div>
+                <ul id="NavMenus" class="right hide-on-med-and-down">
+                    <li id="TodoToggleDiv">
+                        <div class="switch">
+                            Completion
+                            <label>
+                                <input type="checkbox" id="TodoToggle" >
+                                <span class="lever"></span>
+                            </label>
+                            Todo
+                        </div>
+                    </li>
+                    <li id="ButtonGap2" class="navbar-divider">|</li>
+                    <li id="StageButton"><a>Stages</a></li>
+                    <li id="BonusButton"><a>Bonuses</a></li>
+                    <li id="NoteButton"><a>Notes</a></li>
+                    <li id="ButtonGap" class="navbar-divider">|</li>
+                    <li id="T1Button"><a>T1</a></li>
+                    <li id="T2Button"><a>T2</a></li>
+                    <li id="T3Button"><a>T3</a></li>
+                    <li id="T4Button"><a>T4</a></li>
+                    <li id="T5Button"><a>T5</a></li>
+                    <li id="T6Button"><a>T6</a></li>
+                    <li id="T7Button"><a>T7</a></li>
+                    <li id="T8Button"><a>T8</a></li>
+                    <li id="TodoButton"><a>Todo List</a></li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <div class="" id="TableButtonDiv">
+            <a class="btn hidden-button" id="DeleteSelectedTodoButton">Remove Selected</a>
+            <a class="btn hidden-button" id="DeleteDoneTodoButton">Remove Done</a>
+            <a class="btn modal-trigger" id="UpdateButton" href="#UpdateModal"><i class="material-icons">refresh</i></a>
+            <a class="btn modal-trigger" id="SettingsButton" href="#SettingsModal"><i class="material-icons">settings</i></a>
+            <a class="btn modal-trigger" id="HelpButton" href="#HelpModal"><i class="material-icons">question_mark</i></a>
+        </div>
+
+
+        <div id="wrapper"></div>
+        <div class="hidden-table-div" id="hidden-wrapper"></div>
+
+
+        <div id="UpdateModal" class="modal">
+            <div class="modal-content">
+                <div class="modalTitle">Update Maps</div>
+                <hr>
+                <a class="btn" id="MaplistUpdateButton">Check for Updates</a> <p id="LastUpdateTimestamp"></p>
+                <p id="ModalMapUpdates"></p>
+
+
+                <button type="button" id="maptest2">maptest2</button> 
+                <button type="button" id="maptest3">maptest3</button> 
+                <button type="button" id="maptest4">maptest4</button> 
+                <button type="button" id="maptest5">maptest5</button>
+                <button type="button" id="maptest6">current maps (real)</button>
+
+            </div>
+            <div class="modal-footer">
+                <a class="modalExitButton modal-close btn ">Close</a>
+            </div>
+        </div>
+
+
+        <div id="SettingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modalTitle">Settings</div> <div id="SettingsUnsavedWarning"></div>
+                <hr>
+                <div class="modalSection">
+                    <div class="modalSectionTitle">General</div>
+                    <ul class="modalList">
+                        <li><input class="settingsCheckbox" type="checkbox" id="HiddenTableCheckbox" /> Use placeholder table while rendering (disable for slightly faster loading times and significantly worse jitter)</li>
+                        <li><input class="settingsCheckbox" type="checkbox" id="RoundTableCheckbox" /> Round corners on table</li>
+                        <li>Number of rows per page: <input class="settingsInput" id="PaginationInput" style="margin-bottom: 0px" /> (increasing rows reduces lag for tiers with many pages, don't forget you can zoom in/out)</li>
+                        <li>Website title: <input class="settingsInput" id="NavbarTitleInput" style="width:10em; margin-bottom: 0px" /></li>
+                    </ul>
+                </div>
+
+                <div class="modalSection">
+                    <div class="modalSectionTitle">Column Widths</div>
+                    <ul class="modalList">
+                        <li>The sum of these widths <b>must be less than 100</b>, since the stages/bonuses/notes are calculated automatically based on the remaining space.</li>
+                        <li>You will need to refresh for the new widths to take effect. All columns have a built-in minimum width, so you might see a scroll bar with very small columns.</li>
+                    </ul>
+
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col s12" id="WidthInputTableUI">
+                            <table class="responsive-table centered" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="tableTypeCol"></th>
+                                        <th class="colNameCol">Checkbox</th>
+                                        <th class="colNameCol">Map Name</th>
+                                        <th class="colNameCol">Group</th>
+                                        <th class="colNameCol">Goal</th>
+                                        <th class="colNameCol">Current</th>
+                                        <th class="colNameCol">Original</th>
+                                        <th class="colNameCol">The Rest</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="tableTypeName">Map Table</td>
+                                        <td>--</td>
+                                        <td><input class="settingsInput settingsWidthInput" id="MapTableNameWidthInput" /></td>
+                                        <td><input class="settingsInput settingsWidthInput" id="MapTableGroupWidthInput" /></td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td id="MapTableTheRestWidth"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="tableTypeName">Todo List</td>
+                                        <td><input class="settingsInput settingsWidthInput" id="TodoTableCheckboxWidthInput" /></td>
+                                        <td><input class="settingsInput settingsWidthInput" id="TodoTableNameWidthInput" /></td>
+                                        <td>--</td>
+                                        <td><input class="settingsInput settingsWidthInput" id="TodoTableGoalWidthInput" /></td>
+                                        <td><input class="settingsInput settingsWidthInput" id="TodoTableCurrWidthInput" /></td>
+                                        <td><input class="settingsInput settingsWidthInput" id="TodoTableOrigWidthInput" /></td>
+                                        <td id="TodoTableTheRestWidth"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modalSection">
+                    <div class="modalSectionTitle">Colors</div> 
+                    <ul class="modalList">
+                        <li>Presets: <a class="btn paletteSwapButton" id="LightModeButton">Lightmode</a> <a class="btn paletteSwapButton" id="DarkModeButton">Darkmode</a></li>
+                    </ul>
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col s3" id="ColorInputTableUI">
+                            <table class="responsive-table centered" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="colorCellCol">General</th>
+                                        <th class="colorInputCol">Font</th>
+                                        <th class="colorInputCol">Background</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Global</td>
+                                        <td><input class="settingsInput settingsColorInput" id="bodyFtColInput" /></td>
+                                        <td><input class="settingsInput settingsColorInput" id="bodyBgColInput" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Navbar/Buttons</td>
+                                        <td><input class="settingsInput settingsColorInput" id="navbarFtColInput" /></td>
+                                        <td><input class="settingsInput settingsColorInput" id="navbarBgColInput" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Table Header</td>
+                                        <td><input class="settingsInput settingsColorInput" id="tableHeaderFtColInput" /></td>
+                                        <td><input class="settingsInput settingsColorInput" id="tableHeaderBgColInput" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Table Footer</td>
+                                        <td><input class="settingsInput settingsColorInput" id="tableFooterFtColInput" /></td>
+                                        <td><input class="settingsInput settingsColorInput" id="tableFooterBgColInput" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Map Names</td>
+                                        <td><input class="settingsInput settingsColorInput" id="mapcomp-cell-0FtColInput" /></td>
+                                        <td><input class="settingsInput settingsColorInput" id="mapcomp-cell-0BgColInput" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col s3" id="ColorInputTableGroups">
+                        </div>
+
+                        <div class="col s3" id="ColorInputTableTops">
+                        </div>
+
+                        <div class="col s3" id="ColorInputTableMisc">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a id="SettingsSaveButton" class="modalExitButton btn ">Save</a>
+                <a id="SettingsCloseButton" class="modalExitButton modal-close btn ">Close</a>
+            </div>
+        </div>
+
+
+        <div id="HelpModal" class="modal">
+            <div class="modal-content">
+                <div class="modalTitle">Help</div>
+                <hr>
+
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">question_mark</i>FAQ</div>
+                        <div class="collapsible-body">
+                            <div class="FAQQuestion">Why make this?</div>
+                            <div class="FAQAnswer">
+                                Here are some of this site's features that I haven't seen anywhere else:
+                                <ul class="browser-default">
+                                    <li>Finding which maps you haven't beaten (ignoring bonuses)</li>
+                                    <li>Arbitrarily long todo lists (the KSFbot on discord has a limit of 20 items)</li>
+                                    <li>Marking stages/bonuses as todos (like wrb/wrcp)</li>
+                                    <li>Custom notes on maps and todo list entries -- and they're searchable, so you can tag things however you want</li>
+                                    <li>All map info in one spot with easy filtering/searching</li>
+                                </ul>
+                            </div>
+
+                            <div class="FAQQuestion">How do I link my account, import my data, etc.?</div>
+                            <div class="FAQAnswer">
+                                I don't have any database access so you can't. Everything has to be put in manually. In the 0% chance that I ever get KSF database access, I'll definitely let you know. If you're a pc player like me and this hurts your soul, consider at least using this site for the todo list or for cheating at surfle.
+                            </div>
+
+                            <div class="FAQQuestion">A new map was added but I don't see it here?</div>
+                            <div class="FAQAnswer">
+                                Click the <a class="btn" id="helpModalRefreshButton"><i class="material-icons">refresh</i></a> button to check for map updates. The full list of maps is <a href="static/KSFmaps.txt">here (view)</a> or <a href="static/KSFmaps.csv">here (.csv download)</a> and I update it manually, so there might be a short delay after a map is added. If the short delay turns into a long delay and the list still isn't updated, please yell at me on discord. Also, if you ever find any data is wrong, please yell at me on discord.
+                            </div>
+
+                            <div class="FAQQuestion">I hate your color scheme (this isn't really a question)</div>
+                            <div class="FAQAnswer">
+                                You can redefine the colors in the settings. Feel free to change every single one of them.
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">info</i>General Usage</div>
+                        <div class="collapsible-body">
+                            General pointers are
+                            <ul class="browser-default">
+                                <li>Left click to increase a group, right click to decrease a group.</li>
+                                <li>Click the buttons at the top right to change tiers, or to see your todo list.</li>
+                                <li>You can also switch between stages, bonuses, and custom notes when looking at maps.</li>
+                                <li>Maps are sorted by date added, or you can click the top of the table to sort by name or group.</li>
+                                <li>Fully complete maps (map and bonuses) are marked green; perfect maps (wr on everything) are marked gold.</li>
+                            </ul>                            
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">list_alt</i>Todos</div>
+                        <div class="collapsible-body">
+                            Flip the switch from "Completion" to "Todo", then
+                            <ul class="browser-default">
+                                <li>Left click to mark something as todo, right click to unmark it.</li>
+                                <li>Go to the todo list to change the goal or add a note.</li>
+                                <li>You can also update the current status of the map/stage/bonus on the todo list.</li>
+                                <li>Done todos are marked in green.</li>
+                                <li>You can keep todos on the list as long as you want and change the goal anytime.</li>
+                                <li>You can select todos to mass remove on the todo list, or remove all done todos with one click.</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">search</i>Searching</div>
+                        <div class="collapsible-body">
+                            You can search any map name or anything you wrote in a note. Every keyword you can search is below. Some other tips:
+                            <ul class="browser-default">
+                                <li>Searching "wr" will hit all kinds of records: map wrs, wrcps, and wrbs.</li>
+                                <li>Searching "group:any" finds maps that you've beaten; "group:0" finds maps you haven't beaten.</li>
+                            </ul>
+                            <div class="row">
+                                <div class="col s6">
+                                    <div class="FAQQuestion" style="margin-top:1em;">Groups</div>
+                                    <div class="FAQAnswer">
+                                        <table>
+                                            <tr>
+                                                <td class="leftHelpTableTd"><span class="groupNameInline">Not complete</span></td>
+                                                <td class="rightHelpTableTd">group:0</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">No group</span></td>
+                                                <td>group:any, group:none</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Groups (ex. Group 6)</span></td>
+                                                <td>group:any, group:6, group:g6</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Tops (ex. Rank 10)</span></td>
+                                                <td>group:any, group:top, group:r10, group:#10, #10</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">WR</span></td>
+                                                <td>group:any, group:top, group:r1, group:#1, #1, group:wr, wr</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="FAQQuestion" style="margin-top:1em;">Map Type</div>
+                                    <div class="FAQAnswer">
+                                        <table>
+                                            <tr>
+                                                <td class="leftHelpTableTd"><span class="groupNameInline">Staged</span></td>
+                                                <td class="rightHelpTableTd">type:staged</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Linear</span></td>
+                                                <td>type:linear</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Staged-Linear</span></td>
+                                                <td>type:staged-linear type:stagedlinear</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="FAQQuestion" style="margin-top:1em;">Stages/Bonuses</div>
+                                    <div class="FAQAnswer">
+                                        <table>
+                                            <tr>
+                                                <td class="leftHelpTableTd"><span class="groupNameInline">WRCP</span></td>
+                                                <td class="rightHelpTableTd">wrcp</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">WRB</span></td>
+                                                <td>wrb</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="col s6">
+                                    <div class="FAQQuestion" style="margin-top:1em;">Todo Goals (on the todo list)</div>
+                                    <div class="FAQAnswer">
+                                        <table>
+                                            <tr>
+                                                <td class="leftHelpTableTd"><span class="groupNameInline">Improve</span></td>
+                                                <td class="rightHelpTableTd">goal:improve</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Complete</span></td>
+                                                <td>goal:complete, goal:pr</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Group (ex. Group 6)</span></td>
+                                                <td>goal:group6, goal:g6</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Top</span></td>
+                                                <td>goal:top</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">WR</span></td>
+                                                <td>goal:wr</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">WRCP</span></td>
+                                                <td>goal:wrcp</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">WRB</span></td>
+                                                <td>goal:wrb</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="FAQQuestion" style="margin-top:1em;">Completion (with bonuses)</div>
+                                    <div class="FAQAnswer">
+                                        <table>
+                                            <tr>
+                                                <td class="leftHelpTableTd"><span class="groupNameInline">Incomplete</span></td>
+                                                <td class="rightHelpTableTd">map:incomplete</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Complete</span></td>
+                                                <td>map:complete</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="groupNameInline">Perfect</span></td>
+                                                <td>map:perfect</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                    <div class="FAQQuestion" style="margin-top:1em;">Year Added</div>
+                                    <div class="FAQAnswer">
+                                        <table>
+                                            <tr>
+                                                <td class="leftHelpTableTd"><span class="groupNameInline">ex. 2015</span></td>
+                                                <td class="rightHelpTableTd">year:2015</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a class="modalExitButton modal-close btn ">Close</a>
+            </div>
+        </div>
+
+        <script src="js/script.js"></script>
+
+    </body>
+</html>  
