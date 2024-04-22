@@ -2222,7 +2222,7 @@ function getBackToPage(pageNum) {
     //this fires every single time the table visual changes
     //INCLUDING when we change pages
     //so we only need to have one click call here and it'll run as many as needed
-    console.log("we are on", currentPage, "want to get to", pageNum)l
+    console.log("we are on", currentPage, "want to get to", pageNum);
     if (document.getElementsByClassName("gridjs-currentPage").length == 0) { globalPageReady = true; return; } //blank table, just shows Previous | Next
     let currentPage = document.getElementsByClassName("gridjs-currentPage")[0].title.split(" ")[1];
     if (currentPage == pageNum) { //on the right page, exit
