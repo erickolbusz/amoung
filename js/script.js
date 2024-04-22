@@ -2266,6 +2266,7 @@ function getBackToPage(pageNum) {
         }
         humanClickingPagination = false;
 
+        console.log(buttonToClick);
         // waitForElm(".gridjs-pages").then((allpages) => {
         if (buttonToClick) { buttonToClick.click(); }
 
