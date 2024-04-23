@@ -2215,6 +2215,7 @@ function goBackToPage() {
     let currentPageLabel;
     if (displayMode === "todo") { currentPageLabel = "todo"; }
     else { currentPageLabel = globalCurrentTier; }
+    console.log(currentPageLabel,currentPages);
     getBackToPage(currentPages[currentPageLabel]);
 }
 
@@ -2471,6 +2472,7 @@ tableDiv.addEventListener("click", function(e) {
                         break;
                 }
 
+                console.log("writing new current page",currentPageLabel,currentSavedPage);
                 currentPages[currentPageLabel] = currentSavedPage;
                 localStorage.setItem('currentPages', JSON.stringify(currentPages) );
             }
@@ -3899,6 +3901,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //----------------------------------------------------------- good to go -- load the db and render
 
+    console.log("debug");
     openDatabase().then(
         (dbconn) => {
             db = dbconn;
