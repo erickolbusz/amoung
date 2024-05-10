@@ -834,3 +834,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 833,2024-04-19,surf_santorini_ksf,1,Staged,8,5
 834,2024-04-26,surf_honour,3,Staged,4,3
 835,2024-05-03,surf_earthmover,6,Staged,3,6
+836,2024-05-10,surf_salvador_ksf,2,Staged,3,1
