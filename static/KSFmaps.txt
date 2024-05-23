@@ -836,3 +836,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 835,2024-05-03,surf_earthmover,6,Staged,3,6
 836,2024-05-10,surf_salvador_ksf,2,Linear,3,1
 837,2024-05-17,surf_radiant,4,Linear,5,4
+838,2024-05-22,surf_race,1,Staged-Linear,6,5
