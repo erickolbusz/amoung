@@ -467,7 +467,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 466,2017-11-18,surf_gleam,2,Linear,3,2
 467,2017-11-24,surf_take1,3,Linear,4,1
 468,2017-11-30,surf_flatliners,3,Linear,4,1
-469,2017-12-05,surf_vast,6,Staged,5,1
+469,2017-12-05,surf_vast,7,Staged,5,1
 470,2017-12-07,surf_neoteric_retexture,4,Staged,5,4
 471,2017-12-15,surf_cartoon,3,Staged,5,1
 472,2017-12-17,surf_highlands,5,Staged,5,4
@@ -545,7 +545,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 544,2019-01-21,surf_innokia,6,Staged,5,4
 545,2019-01-24,surf_devil,7,Staged,4,1
 546,2019-01-25,surf_cyberwave,2,Staged,2,1
-547,2019-01-26,surf_spectra,6,Linear,7,2
+547,2019-01-26,surf_spectra,7,Linear,7,2
 548,2019-02-03,surf_selenka,5,Staged,4,2
 549,2019-02-10,surf_progress_fix,2,Staged-Linear,5,0
 550,2019-02-13,surf_lax,4,Staged,7,3
@@ -570,10 +570,10 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 569,2019-06-09,surf_lost2,3,Staged,4,4
 570,2019-06-16,surf_mwag_reloaded,2,Staged,14,5
 571,2019-06-20,surf_bluewall_v2,2,Staged,4,3
-572,2019-06-30,surf_hades2,6,Staged,6,5
+572,2019-06-30,surf_hades2,7,Staged,6,5
 573,2019-07-20,surf_froots2,5,Staged,20,4
 574,2019-07-22,surf_nyx,1,Linear,3,3
-575,2019-07-26,surf_sinsane2,7,Linear,5,4
+575,2019-07-26,surf_sinsane2,8,Linear,5,4
 576,2019-08-04,surf_marbleblast_intermediate,3,Linear,5,1
 577,2019-08-11,surf_eggplant,2,Linear,4,3
 578,2019-08-11,surf_glass7_ksf,2,Linear,4,0
@@ -738,9 +738,9 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 737,2022-04-24,surf_infrared,4,Staged,6,5
 738,2022-05-01,surf_wasteland2,3,Staged,3,5
 739,2022-05-08,surf_undergrowth,3,Linear,4,3
-740,2022-05-15,surf_offskill,6,Staged,4,1
+740,2022-05-15,surf_offskill,7,Staged,4,1
 741,2022-05-22,surf_shady_h,4,Linear,4,0
-742,2022-06-01,surf_whynot2,6,Linear,6,2
+742,2022-06-01,surf_whynot2,7,Linear,6,2
 743,2022-06-11,surf_minuet_ksf,1,Linear,4,0
 744,2022-06-21,surf_nocturn,4,Staged,5,2
 745,2022-07-05,surf_agony,2,Linear,4,1
@@ -778,7 +778,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 777,2023-01-15,surf_fuckyall,4,Staged,3,1
 778,2023-01-21,surf_quirky,2,Linear,3,9
 779,2023-01-29,surf_endeavor,4,Staged,3,2
-780,2023-02-05,surf_tensor2,7,Staged,8,6
+780,2023-02-05,surf_tensor2,8,Staged,8,6
 781,2023-02-13,surf_frey_remake,2,Staged,3,2
 782,2023-02-22,surf_outra,4,Linear,4,3
 783,2023-03-01,surf_seaside,3,Staged,7,3
@@ -829,7 +829,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 828,2024-03-14,surf_greek,2,Staged,7,3
 829,2024-03-24,surf_selenka2,5,Staged,4,5
 830,2024-04-01,surf_tempest4,4,Linear,4,7
-831,2024-04-10,surf_vacant,6,Linear,6,2
+831,2024-04-10,surf_vacant,7,Linear,6,2
 832,2024-04-19,surf_santorini3,6,Staged,5,5
 833,2024-04-19,surf_santorini_ksf,1,Staged,8,5
 834,2024-04-26,surf_honour,3,Staged,4,3
