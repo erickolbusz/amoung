@@ -839,4 +839,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 838,2024-05-22,surf_race,1,Staged-Linear,6,5
 839,2024-05-26,surf_ben10,3,Linear,5,10
 840,2024-06-15,surf_antagonist,7,Staged,4,2
-841,2024-06-21,surf_monkeys,5,Linear,7,6
+841,2024-06-21,surf_monkeys,6,Linear,7,6
