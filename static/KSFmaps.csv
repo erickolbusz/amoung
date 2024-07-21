@@ -586,7 +586,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 585,2019-10-02,surf_nesquik,5,Staged,6,6
 586,2019-10-20,surf_skipalot,2,Linear,4,4
 587,2019-10-27,surf_queen_of_the_ween,3,Linear,3,3
-588,2019-11-09,surf_cavemissile_fix,2,Linear,4,4
+588,2019-11-09,surf_cavemissile_fix,3,Linear,4,4
 589,2019-11-27,surf_gleam2,2,Staged,4,4
 590,2019-11-27,surf_warped,4,Linear,4,3
 591,2019-12-21,surf_fornax,1,Linear,3,7
@@ -842,3 +842,5 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 841,2024-06-21,surf_monkeys,6,Linear,7,6
 842,2024-06-28,surf_excavation,5,Staged,12,7
 843,2024-07-05,surf_sidelines,6,Staged,5,1
+844,2024-07-12,surf_2pacisalive,2,Linear,3,1
+845,2024-07-19,surf_tropic_ksf,3,Staged,7,6
