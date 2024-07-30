@@ -844,3 +844,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 843,2024-07-05,surf_sidelines,6,Staged,5,1
 844,2024-07-12,surf_2pacisalive,2,Linear,3,1
 845,2024-07-19,surf_tropic_ksf,3,Staged,7,6
+846,2024-07-30,surf_salmari,4,Linear,6,0
