@@ -848,3 +848,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 847,2024-08-04,surf_era,3,Linear,13,3
 848,2024-08-10,surf_monkeys2,5,Linear,7,4
 849,2024-08-25,surf_crucible,5,Linear,4,1
+850,2024-09-06,surf_twist,7,Linear,5,2
