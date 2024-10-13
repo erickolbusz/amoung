@@ -852,3 +852,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 851,2024-09-14,surf_slate,4,Staged,4,4
 852,2024-09-29,surf_enigma,5,Staged,4,2
 853,2024-10-06,surf_n_turf,1,Staged,6,10
+854,2024-10-12,surf_atonement,6,Linear,9,2
