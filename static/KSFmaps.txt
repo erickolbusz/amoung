@@ -856,3 +856,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 855,2024-11-04,surf_smart,2,Linear,4,1
 856,2024-11-09,surf_kira,5,Staged,4,1
 857,2024-11-25,surf_helljumper,7,Linear,4,5
+858,2024-12-03,surf_board_this,4,Staged,6,8
