@@ -868,3 +868,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 867,2024-12-23,surf_leidenfrost,2,Linear,5,1
 868,2024-12-23,surf_interstellar,2,Staged,5,1
 869,2025-01-05,surf_chromatic,6,Staged,12,4
+870,2025-01-12,surf_whatever,2,Staged,3,2
