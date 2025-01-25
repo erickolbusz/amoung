@@ -826,7 +826,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 825,2024-02-11,surf_boogie_woogie,2,Staged,4,6
 826,2024-02-20,surf_ruse,7,Staged,6,10
 827,2024-02-29,surf_sidistic,7,Linear,8,0
-828,2024-03-14,surf_greek,2,Staged,7,3
+828,2024-03-14,surf_greek_ksf,2,Staged,7,3
 829,2024-03-24,surf_selenka2,5,Staged,4,5
 830,2024-04-01,surf_tempest4,4,Linear,4,7
 831,2024-04-10,surf_vacant,7,Linear,6,2
