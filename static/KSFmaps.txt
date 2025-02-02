@@ -870,3 +870,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 869,2025-01-05,surf_chromatic,6,Staged,12,4
 870,2025-01-12,surf_whatever,2,Staged,3,2
 871,2025-01-26,surf_olivia,7,Linear,4,5
+872,2025-02-02,surf_citypop,1,Linear,3,4
