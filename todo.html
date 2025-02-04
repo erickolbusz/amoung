@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Surf Checklist</title>
+        <title>Surf Checklist</title>   
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
@@ -28,7 +28,7 @@
         <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.js"></script>
         <script src="https://cdn.datatables.net/staterestore/1.4.1/js/dataTables.stateRestore.js"></script>
         <script src="https://cdn.datatables.net/plug-ins/2.1.2/sorting/natural.js"></script>
-    
+        
         <link type="text/css" rel="stylesheet" href="static/style.css" /> 
 
     </head>
@@ -37,38 +37,32 @@
             <div class="nav-wrapper">
                 <div id="TitleDiv" class="brand-logo hide-on-med-and-down">KSF Checklist</div>
                 <ul id="NavMenus" class="right">
-                    <li id="TodoToggleDiv">
-                        <div class="switch">
-                            Completion
-                            <label>
-                                <input type="checkbox" id="TodoToggle" >
-                                <span class="lever"></span>
-                            </label>
-                            Todo
-                        </div>
-                    </li>
-                    <li id="ButtonGap" class="navbar-divider">|</li>
-                    <li id="MapsButton" class="active"><a href="#">Maps</a></li>
-                    <li id="TodoButton"><a href="todo.html">Todo</a></li>
+                    <li id="MapsButton"><a href="index.html">Maps</a></li>
+                    <li id="TodoButton" class="active"><a href="#">Todo</a></li>
                 </ul>
             </div>
         </nav>
 
+
         <div id="UIDiv">
             <div class="" id="TableButtonDiv">
+                <a class="btn modal-trigger" id="DeleteSelectedTodoButton">Remove Selected</a>
+                <a class="btn modal-trigger" id="DeleteDoneTodoButton">Remove Done</a>
                 <a class="btn modal-trigger" id="UpdateButton" href="#UpdateModal"><i class="material-icons">refresh</i></a>
                 <a class="btn modal-trigger" id="SettingsButton" href="#SettingsModal"><i class="material-icons">settings</i></a>
                 <a class="btn modal-trigger" id="HelpButton" href="#HelpModal"><i class="material-icons">question_mark</i></a>
             </div>
 
-            <div id="SearchBarDivMaps">
-                <input type="text" id="SearchBarMaps" placeholder="search for maps" />
+            <div id="SearchBarDivTodo">
+                <input type="text" id="SearchBarTodo" placeholder="search for maps" />
                 <div id="SearchInfo"></div>
             </div>
         </div>
 
+
         <div id="TableWrapper">
-            <table class="mapTable" id="MapTable"></table>
+            <table id="TodoTable">
+            </table>
         </div>
 
 
@@ -84,7 +78,7 @@
                 <a class="modalExitButton modal-close btn ">Close</a>
             </div>
         </div>
-
+        
 
         <div id="SettingsModal" class="modal">
             <div class="modal-content">
@@ -517,7 +511,7 @@
         </div>
 
         <script src="js/bothscript.js"></script>
-        <script src="js/mapscript.js"></script>
+        <script src="js/todoscript.js"></script>
 
     </body>
 </html>  

@@ -1,90 +1,137 @@
-/* ---------------------------------------------------------------------------------------------- general */
-html, body {
-    font-family: 'Roboto', sans-serif;
-    height: 100%;
+/* ------------------------------------------------------------------------------------------------------------------------ TABLE CELLS */
+/* --------------------------------------------------------------------- COLORS */
+
+.null-cell { /* null */
+	color: var(--null-cellFtCol, #000000);
+	background-color: var(--null-cellBgCol, #bdbdbd);
+}
+.comp-cell-0 { /* X */ 
+	color: var(--comp-cell-0FtCol, #a61919);
+	background-color: var(--comp-cell-0BgCol, #e57373);
+}
+.comp-cell-1, .todo-cell-stage-1, .todo-cell-bonus-1 { /* check */ 
+	color: var(--comp-cell-1FtCol, #27772a);
+	background-color: var(--comp-cell-1BgCol, #81c784);
+}
+.comp-cell-WR, .todo-cell-group-WR, .todo-cell-stage-WR, .todo-cell-bonus-WR { /* star */ 
+	color: var(--comp-cell-WRFtCol, #987f10);
+	background-color: var(--comp-cell-WRBgCol, #fdd835);
 }
 
-hr { /* to color them */
-	height: 1px !important;
-	border: 0px;
+
+.comp-cell-G7 { /* G7 */ 
+	color: var(--comp-cell-G7FtCol, #613626);
+	background-color: var(--comp-cell-G7BgCol, #a1887f);
 }
+.comp-cell-G6, .todo-cell-group-G6 { /* G6 */ 
+	color: var(--comp-cell-G6FtCol, #4d6220);
+	background-color: var(--comp-cell-G6BgCol, #92a46c);
+}
+.comp-cell-G5, .todo-cell-group-G5 { /* G5 */ 
+	color: var(--comp-cell-G5FtCol, #1c6420);
+	background-color: var(--comp-cell-G5BgCol, #5fa763);
+}
+.comp-cell-G4, .todo-cell-group-G4 { /* G4 */ 
+	color: var(--comp-cell-G4FtCol, #19654e);
+	background-color: var(--comp-cell-G4BgCol, #53a98f);
+}
+.comp-cell-G3, .todo-cell-group-G3 { /* G3 */ 
+	color: var(--comp-cell-G3FtCol, #155067);
+	background-color: var(--comp-cell-G3BgCol, #478fab);
+}
+.comp-cell-G2, .todo-cell-group-G2 { /* G2 */ 
+	color: var(--comp-cell-G2FtCol, #122068);
+	background-color: var(--comp-cell-G2BgCol, #3c4fad);
+}
+.comp-cell-G1, .todo-cell-group-G1 { /* G1 */ 
+	color: var(--comp-cell-G1FtCol, #2f0f68);
+	background-color: var(--comp-cell-G1BgCol, #5e31ae);
+}
+
+
+.comp-cell-R10 { /* R10 */ 
+	color: var(--comp-cell-R10FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R10BgCol, #9c27b0);
+}
+.comp-cell-R9 { /* R9 */ 
+	color: var(--comp-cell-R9FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R9BgCol, #a02fb3);
+}
+.comp-cell-R8 { /* R8 */ 
+	color: var(--comp-cell-R8FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R8BgCol, #a437b6);
+}
+.comp-cell-R7 { /* R7 */ 
+	color: var(--comp-cell-R7FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R7BgCol, #a73fb9);
+}
+.comp-cell-R6 { /* R6 */ 
+	color: var(--comp-cell-R6FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R6BgCol, #ab48bc);
+}
+.comp-cell-R5 { /* R5 */ 
+	color: var(--comp-cell-R5FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R5BgCol, #af50bf);
+}
+.comp-cell-R4 { /* R4 */ 
+	color: var(--comp-cell-R4FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R4BgCol, #b258c2);
+}
+.comp-cell-R3 { /* R3 */ 
+	color: var(--comp-cell-R3FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R3BgCol, #b660c5);
+}
+.comp-cell-R2 { /* R2 */ 
+	color: var(--comp-cell-R2FtCol, #5c0c6a);
+	background-color: var(--comp-cell-R2BgCol, #ba68c8);
+}
+
+
+.todo-cell-group-G7 { /* todo: complete */ 
+	color: var(--todo-cell-group-G7FtCol, #613626);
+	background-color: var(--todo-cell-group-G7BgCol, #a1887f);
+}
+.todo-cell-group-TOP { /* todo: top */ 
+	color: var(--todo-cell-group-TOPFtCol, #5c0c6a);
+	background-color: var(--todo-cell-group-TOPBgCol, #af50bf);
+}
+.todo-cell-group-IMP, .todo-cell-stage-IMP, .todo-cell-bonus-IMP { /* todo: improve */ 
+	color: var(--todo-cell-group-IMPFtCol, #000000);
+	background-color: var(--todo-cell-group-IMPBgCol, #bdbdbd);
+}
+
+
+/* same as check and wr but the text stays black (or whatever the color is chosen to be) */
+.mapcomp-cell-0, .todocomp-cell-0 { /* for things that aren't done */ 
+	height: 100%;
+	color: var(--mapcomp-cell-0FtCol, #000000);
+	background-color: var(--mapcomp-cell-0BgCol, #ffffff);
+}
+.mapcomp-cell-1, .todocomp-cell-1 { /* for "Done" maps or completed todos */ 
+	height: 100%;
+	color: var(--mapcomp-cell-0FtCol, #000000);
+	background-color: var(--comp-cell-1BgCol, #81c784);
+}
+.mapcomp-cell-2 { /* for perfect maps */ 
+	height: 100%;
+	color: var(--mapcomp-cell-0FtCol, #000000);
+	background-color: var(--comp-cell-WRBgCol, #fdd835);
+}
+
+
+/* --------------------------------------------------------------------- FORMATTING */
 
 .material-icons { /* to get matrial icons to be vertically centered */
 	line-height: 36px !important;
 }
 
-
-/* ---------------------------------------------------------------------------------------------- all things gridjs */
-/* lots of !important spam here sadly */
-.gridjs-head {
-	padding-top: 0px !important;
-	padding-bottom: 0px !important;
-}
-.gridjs-search {
-	width:100%;
-}
-.gridjs-search>input {
-	margin: 0px !important;
-	margin-bottom: -2px !important;
-}
-
-.gridjs-wrapper {
-	border-radius: var(--TableWrapperBorder, 8px 8px 0 0);
-}
-
-.gridjs-footer {
-	border-top: 0px !important;
-}
-.gridjs-currentPage {
-	text-decoration-line: underline; /* underline current page */
-}
-
-.gridjs-table {
-	height: 100%;
-}
-
-.gridjs-td {
-	text-align: center;
-	padding: 0px !important; /* so that divs are full cell */
-	min-height: 1px !important; /* probably don't need */
-	border: 1px solid black !important;
-	height: 28px !important;
-}
-.gridjs-td[data-column-id="map_note"] {
-	text-align: left;
-	padding-left: 10px !important;
-}
-.gridjs-td[data-column-id="todo_note"] {
-	text-align: left;
-	padding-left: 10px !important;
-}
-
-.gridjs-th {
-	text-align: center !important;
-	border: 3px solid black !important;
-	border-bottom: 3px solid black !important;
-	border-radius: 0px;
-	padding: 7px 12px !important; /* original is 14px 24px */
-}
-.gridjs-th:nth-child(2) {
-	border-right: 3px solid black !important;
-}
-/* these next two, together, line up with the above border */
-.gridjs-td:nth-child(2)>span>div {
-	border-right: 1px solid black !important;
-}
-.gridjs-td:nth-child(3)>span>div {
-	border-left: 1px solid black !important;
-}
-
-
-/* ---------------------------------------------------------------------------------------------- table cell formatting */
-
-.name-cell>div, .checkbox-cell>div,
+.name-cell>div, .checkbox-cell>div, .tier-cell>div,
 .group-cell>div:not([class|="comp-cell-0"]):not([class|="comp-cell-WR"]), 
-.todo-goal-cell>div:not([class|="todo-cell-stage-1"]):not([class|="todo-cell-bonus-1"]):not([class|="todo-cell-group-WR"]):not([class|="todo-cell-stage-WR"]):not([class|="todo-cell-bonus-WR"])
+.todo-goal-cell>div:not([class|="todo-cell-stage-1"]):not([class|="todo-cell-bonus-1"]):not([class|="todo-cell-group-WR"]):not([class|="todo-cell-stage-WR"]):not([class|="todo-cell-bonus-WR"]),
+.name-control
 { /* make cells with text 36px */
 	line-height: 36px !important;
+	height: 36px;
 }
 
 div [class|="comp-cell-G7"], div [class|="todo-cell-group-G7"], div [class|="todo-cell-group-IMP"], div [class|="todo-cell-stage-IMP"], div [class|="todo-cell-bonus-IMP"], .name-cell, .settingsCell { /* cells that can overflow */
@@ -99,35 +146,103 @@ div [class|="comp-cell-G7"], div [class|="todo-cell-group-G7"], div [class|="tod
 	box-shadow:inset 0px 0px 0px 5px #000;
 }
 
-.group-cell, .bonus-cell, .todo-goal-cell, div [class|="null-cell"], .nav-wrapper, .settingsCell { /* to not be highlightable */
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
+.group-cell, .bonus-cell, .stage-cell, .todo-goal-cell, .null-cell, .nav-wrapper, .settingsCell, .name-control { /* to not be highlightable */
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+.bonus-cell {
+	display: inline;
+	margin-left: 2em;
+}
+.blabel {
+	position: absolute; /*sends to top left*/
+	padding-top: 9px; /*vertical center for 36px*/
+	padding-left: 4px; /*BX gets pushed in more than B10*/
+	font-weight: bold;
+}
+.blabel-10 {
+	padding-left: 0px;
+}
+.bonus-cell>div:not([class="blabel"]) {
+	border: 1px solid black;
+	display: inline-block;
+	width: 80%;
 }
 
 .todoCheckbox { /* checkboxes in the todo table */
 	opacity: 1 !important;
-	position: relative !important;
+	position: static !important;
+	pointer-events: auto !important;
+	float: left !important;
+	margin: 6px 0 6px 6px;
+	width: 24px;
+	height: 24px;
 }
 
 
-/* ---------------------------------------------------------------------------------------------- hiding things */
 
-.hidden-table-div { /* hiding the table by making it height 0 */
-	height: 0 !important;
-	overflow: hidden;
+/* ------------------------------------------------------------------------------------------------------------------------ GLOBAL FORMATTING */
+/* --------------------------------------------------------------------- COLORS */
+
+/* global font color */
+#ColorInputTableGroups, #ColorInputTableTops, #ColorInputTableMisc { 
+	border-left: 3px solid var(--bodyFtCol, #000000); /* bars between the color inputs in settings */
+}
+body, .settingsInput {
+	color: var(--bodyFtCol, #000000);
+}
+hr {
+	background-color: var(--bodyFtCol, #000000);
+}
+.collapsible-body {
+	border-bottom: 1px solid var(--bodyFtCol, #000000); /* lines between collapsibles */
 }
 
-.hidden-nav-div { /* hiding buttons in the nav by yeeting them left */
-	transform: translate(-9999px, 0px);
+
+/* global background color */
+body, .modal {
+	background-color: var(--bodyBgCol, #eeeeee);
+}
+.modal-footer {
+	background-color: var(--bodyBgCol, #eeeeee) !important; /* materialize override */
 }
 
-.hidden-button { /* hiding buttons by the search bar by just not displaying them */
-	display: none !important;
+
+/* ui font color */
+.nav-wrapper>ul>li>a, #TableButtonDiv>a, .modalExitButton, #MaplistUpdateButton, .paletteSwapButton, #helpModalRefreshButton{
+	color: var(--navbarFtCol, #ffffff);
+}
+#TitleDiv {
+	color: var(--navbarFtCol, #ffffff) !important;
 }
 
 
-/* ---------------------------------------------------------------------------------------------- navbar */
+/* ui bg color */
+/*.nav-wrapper, #TableButtonDiv>a, .modalExitButton, #MaplistUpdateButton, .paletteSwapButton, #helpModalRefreshButton { /* navbar, buttons up top, and in modals */
+.nav-wrapper, a.btn { /* navbar, buttons up top, and in modals */ 
+	background-color: var(--navbarBgCol, #213552);
+}
+a.btn:hover {
+	background-color: color-mix(in srgb, var(--navbarBgCol, #213552) 90%, #000 10%); /* same 10% alpha on hover */
+}
+
+
+/* --------------------------------------------------------------------- GENERAL */
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+
+hr { /* to color them */
+	height: 1px !important;
+	border: 0px;
+}
+
+
+/* --------------------------------------------------------------------- NAVBAR */
 
 nav ul li {
   font-weight: bold;
@@ -144,16 +259,221 @@ nav ul li div {
 	font-size:24pt;
 }
 
-#TableButtonDiv { /* the div holding the buttons */
-	z-index: 5;
-	position: absolute; 
-	right: 0px;
-	margin-top: 7px;
-	margin-right: 5px;
+/* the todo toggle */
+.switch label input[type="checkbox"]:checked + .lever { 
+	background-color: rgba(0,0,0,0.38);
+}
+.switch label .lever::after {
+	background-color: var(--navbarFtCol, #ffffff);
+}
+.switch label input[type="checkbox"]:checked + .lever::after {
+	background-color: var(--navbarFtCol, #ffffff);
 }
 
 
-/* ---------------------------------------------------------------------------------------------- general modals */
+/* --------------------------------------------------------------------- UI BUTTONS/SEARCH */
+
+#UIDiv {
+	position: absolute;
+	z-index: 1;
+}
+
+#TableButtonDiv { /* the div holding the buttons */
+	/*position: absolute; */
+	display: inline-block;
+	margin: 0.5em 0.5em;
+}
+
+#SearchBarDivMaps {
+	position: relative;
+	display: inline-block;
+	width: calc(100vw - 525px - 162.5px);
+}
+#SearchBarDivTodo {
+	position: relative;
+	display: inline-block;
+	width: calc(100vw - 525px - 162.5px - 175.5px - 4px - 139.5px - 4px); /* subtract the two extra buttons */
+}
+#SearchBarMaps, #SearchBarTodo {
+	width: 100%;
+	color: var(--bodyFtCol, #000000);
+	height: 2.5rem;
+	padding-left: 0.25em;
+}
+#SearchBarMaps::placeholder, #SearchBarTodo::placeholder {
+	font-style: italic;
+}
+
+#SearchInfo {
+	position: absolute;
+	right: -0.5em;
+	top: 8px;
+	background-color: var(--bodyBgCol, #eeeeee);
+	padding-left: 1em;
+	padding-right: 0.5em;
+	font-style: italic;
+}
+
+
+/* --------------------------------------------------------------------- TEXT INPUTS */
+
+input:not([type]):focus:not([readonly]), input[type="search"]:not(.browser-default):focus:not([readonly]) { /* input bottom border */
+	border-bottom: 1px solid var(--bodyFtCol, #000000);
+	-webkit-box-shadow: 0 1px 0 0 solid var(--bodyFtCol, #000000);
+	box-shadow: 0 1px 0 0 var(--bodyFtCol, #000000);
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+	border-bottom: 1px solid var(--navbarBgCol, #213552);
+	-webkit-box-shadow: 0 1px 0 0 var(--navbarBgCol, #213552);
+	box-shadow: 0 1px 0 0 var(--navbarBgCol, #213552);
+}
+
+::placeholder { /* placeholder text in the search bar */
+	color: var(--bodyFtCol, #000000);
+}
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------------ TABLE FORMATTING */
+/* --------------------------------------------------------------------- GENERAL */
+
+#TableWrapper { /* applies to both, this is a div I made around the table */
+	position: relative;
+	z-index: 0;
+}
+#TodoTable_wrapper { /* this is the wrapper div autogenerated by datatables, so this only applies to todo table */
+	padding-top: 2px; /* I don't get it man */
+}
+
+#MapTable tr td:nth-child(3), #TodoTable tr td:nth-child(2) {
+	border-right: 4px solid black;
+}
+
+table {
+	/*data-page-length: 25;*/
+}
+td {
+	padding: 0px !important;
+	text-align: center !important;
+	border: 1px solid black;
+}
+th {
+	text-align: center !important;
+	border: 3px solid black !important;
+	border-radius: 0 !important;
+	color: var(--tableHeaderFtCol, #ffffff);
+	background-color: var(--tableHeaderBgCol, #578eda);
+}
+tr { /* to color these over the materialize default */
+	border-bottom: 1px solid var(--bodyFtCol, #000000);
+}
+
+
+/* --------------------------------------------------------------------- DROPDOWN */
+
+.name-control {
+	padding-left: 10px;
+	float: left;
+}
+
+/* to make the dropdown look like it's in the same cell as the name */
+.dt-control {
+	border-right: 0px;
+}
+.dt-control + td {
+	border-left: 0px;
+}
+
+tr.details{ /* the actual row of the dropdown */
+	color: var(--bodyFtCol, #000000) !important;
+	background-color: var(--mapcomp-cell-0BgCol, #ffffff) !important;
+}
+
+.map-detail-container {
+	max-width: 99999px !important;
+	height: 0px; /*height is automatic based on contents*/
+}
+.map-detail-row { /* the row inside the cols in the detail, i.e. the map info or the bonuses */
+	margin: 1em 0 !important;
+}
+.map-detail-note-row { /* the third row in the cols, this one's for the note */
+	margin: 1em auto 0 auto !important;
+	/*margin-bottom: calc(0.5em - 2.75px) !important;*/ 
+}
+.map-detail-note {
+	height: 190px; /* lol */ 
+	resize: none;
+	outline: none;
+	border: 2px solid var(--bodyFtCol, #000000);
+	color: var(--bodyFtCol, #000000);
+	padding: 0.5em;
+}
+.map-detail-note::placeholder {
+	font-style: italic;
+}
+.background-tint { /* to make it a little darker than normal bg color */
+	background-color: rgba(0,0,0,.1);
+	background-blend-mode: add;
+}
+
+.blabel {
+	color: var(--mapcomp-cell-0FtCol, #000000);
+}
+
+/* --------------------------------------------------------------------- HEADER/FOOTER */
+
+/* line at the bottom of table */
+div.dt-container.dt-empty-footer tbody > tr:last-child > * {
+	border-bottom: 1px solid black;
+}
+
+/* hide the info, we copy it to the searchbar */
+#MapTable_info, #TodoTable_info {
+	display: none;
+}
+
+.dt-paging, .dt-paging-button, div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active {
+	color: var(--mapcomp-cell-0FtCol, #000000) !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button:not(.current):not(.disabled):hover {
+	background-color: rgba(0,0,0,.1) !important; /* give a little alpha on hover */
+	color: var(--mapcomp-cell-0FtCol, #000000) !important; /* override */
+	background: none; /* override */
+}
+
+/* current = make it look like navbar */
+div.dt-container .dt-paging .dt-paging-button.current {
+	color: var(--navbarFtCol, #ffffff) !important;
+	background-color: var(--navbarBgCol, #213552);
+}
+div.dt-container .dt-paging .dt-paging-button.current:hover {
+	color: var(--navbarFtCol, #ffffff) !important;
+	background-color: color-mix(in srgb, var(--navbarBgCol, #213552) 90%, #000 10%); /* same 10% alpha on hover */
+}
+
+
+/* --------------------------------------------------------------------- TODO TABLE NOTES */
+
+.todo-note-text {
+	border: 0 !important;
+	height: 36px !important;
+	margin: 0 !important;
+	padding-left: 0.5em !important;
+	overflow: hidden !important;
+	color: var(--bodyFtCol, #000000);
+}
+
+.note-cell {
+	background-color: var(--mapcomp-cell-0BgCol, #ffffff);
+	overflow: hidden;
+}
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------------ MODALS */
+/* --------------------------------------------------------------------- GENERAL */
 
 .modal { /* general wrapper */
 	width: 85%;
@@ -177,51 +497,55 @@ nav ul li div {
 	padding-top: 0em;
 }
 
+/* coloring collapsibles */
+.collapsible {
+	border: 0;
+}
+.collapsible-header {
+	color: var(--tableHeaderFtCol, #ffffff);
+	background-color: var(--tableHeaderBgCol, #335380);
+}
+.collapsible-header:focus {
+	background-color: var(--tableHeaderBgCol, #335380) !important; /* materialize idk */
+}
 
-/* ---------------------------------------------------------------------------------------------- update modal */
+
+/* --------------------------------------------------------------------- UPDATE MODAL */
 
 .mapUpdatedTodos { /* red warning that todos got cleared when updating a map */
 	color: red;
 }
 
-
 #LastUpdateTimestamp { /* last update time */
 	display: inline;
 }
+
 #MapUpdateSuccess { /* kinda self explanatory */
 	font-weight: bold;
 }
 
 
-/* ---------------------------------------------------------------------------------------------- settings modal */
+/* --------------------------------------------------------------------- SETTINGS MODAL */
 
 .modalList { /* ul used in settings modal */
 	margin: 0;
-	margin-left: 2em;
+	/*margin-left: 2em;*/
 }
-
-/* table formatting */
-.modalSection th {
-	padding:5px 5px;
-	border-bottom: 2px solid var(--ModalTableCol, #000000); /* the hr at the bottom of the head */
-}
-.modalSection tr:nth-child(1) td {
-	padding-top: 2px;
-}
-.modalSection td {
-	padding: 0px 5px;
-}
-.colorCellCol { /* width of first col */
-	width: 60%;
-}
-.colorInputCol { /* width of other cols -- why don't these add up to 100? whatever */
-	width: 60%;
+.modalList li + li {
+	margin-top:0.2em;
 }
 
 #SettingsUnsavedWarning { /* red warning top right */
 	color: red;
 	float:right;
 	margin-bottom: 40px;
+}
+
+.colorCellCol { /* width of first col */
+	width: 60%;
+}
+.colorInputCol { /* width of other cols -- why don't these add up to 100? whatever */
+	width: 60%;
 }
 
 .settingsInput { /* typing input in settings */
@@ -237,8 +561,8 @@ nav ul li div {
 	pointer-events: auto !important;
 	margin-bottom: 4px !important;
 }
-#PaginationInput { /* the # pages input */
-	width: 2.5em;
+.settingsNumberInput { /* the # pages input */
+	width: 2.5em !important; 
 }
 .settingsColorInput { /* the inputs for colors */
 	width: 5em !important;
@@ -255,56 +579,23 @@ nav ul li div {
 }
 
 
-/* ---------------------------------------------------------------------------------------------- help modal */
+/* --------------------------------------------------------------------- HELP MODAL */
 
 .FAQAnswer { /* just want to tab them in a little */
 	padding-left: 2em;
 	padding-bottom: 5px;
 }
-.groupNameInline { /* names of groups in the table in the help */
+.searchNameInline { /* names of groups in the table in the help */
 	font-weight: bold;
 }
 
-/* the search table */
+/* the regex table */
 .leftHelpTableTd {
-	width: 50%;
+	width: 40%;
+}
+.midHelpTableTd {
+	width: 30%;
 }
 .rightHelpTableTd {
-	width: 50%;
-}
-
-
-/* ---------------------------------------------------------------------------------------------- materialize overrides */
-
-::placeholder { /* placeholder text in the search bar */
-  color: var(--PlaceholderFtCol, black);
-}
-
-/* the todo toggle */
-.switch label input[type="checkbox"]:checked + .lever { 
-	background-color: rgba(0,0,0,0.38);
-}
-.switch label .lever::after {
-	background-color: var(--TodoToggleCol, #f1f1f1);
-}
-.switch label input[type="checkbox"]:checked + .lever::after {
-	background-color: var(--TodoToggleCol, #f1f1f1);
-}
-
-tr { /* to color these over the materialize default */
-	border-bottom: 1px solid var(--ModalTableCol, #000000);
-}
-
-input:not([type]):focus:not([readonly]), input[type="search"]:not(.browser-default):focus:not([readonly]) { /* input bottom border */
-	border-bottom: 1px solid var(--InputLineCol, #000000);
-	-webkit-box-shadow: 0 1px 0 0 solid var(--InputLineCol, #000000);
-	box-shadow: 0 1px 0 0 var(--InputLineCol, #000000);
-}
-
-/* coloring collapsibles */
-.collapsible {
-	border: 0;
-}
-.collapsible-header {
-	background-color: var(--ModalTableCol, #ffffff);
+	width: 30%;
 }
