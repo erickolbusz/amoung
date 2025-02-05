@@ -1024,6 +1024,9 @@ function tierRender(data,type,row) {
         case "display":
             return makeTierDisplay(data,row);
             break;
+        case "sort":
+            return +data;
+            break;
         default: //filter, sort
             return "";
             break;
