@@ -874,3 +874,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 873,2025-02-09,surf_bikini_bottom,3,Staged,6,7
 874,2025-02-16,surf_raqqit,3,Linear,3,2
 875,2025-03-02,surf_pipeline,2,Linear,4,5
+876,2025-03-08,surf_starvald,7,Linear,4,4
