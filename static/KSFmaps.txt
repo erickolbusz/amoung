@@ -864,7 +864,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 863,2024-12-23,surf_breach,5,Linear,6,4
 864,2024-12-23,surf_cavity,4,Linear,3,4
 865,2024-12-23,surf_colony,3,Linear,4,0
-866,2024-12-23,surf_muerto,5,Staged,2,1
+866,2024-12-23,surf_muerto,5,Staged-Linear,2,1
 867,2024-12-23,surf_leidenfrost,2,Linear,5,1
 868,2024-12-23,surf_interstellar,2,Staged,5,1
 869,2025-01-05,surf_chromatic,6,Staged,12,4
