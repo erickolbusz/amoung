@@ -882,3 +882,5 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 881,2025-04-13,surf_technical,5,Linear,4,5
 882,2025-04-20,surf_gradient,1,Staged-Linear,6,1
 883,2025-04-26,surf_doomsday,8,Staged,4,2
+884,2025-05-04,surf_shy,2,Linear,3,2
+885,2025-05-11,surf_fuchnut,2,Linear,4,4
