@@ -887,3 +887,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 886,2025-05-18,surf_weirdcore,6,Linear,4,2
 887,2025-05-25,surf_expel,5,Staged,3,6
 888,2025-06-01,surf_metalpipes,4,Linear,5,4
+889,2025-06-15,surf_panta_rhei,5,Staged,4,2
