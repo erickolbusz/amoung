@@ -893,3 +893,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 892,2025-06-29,surf_vestige_fix,4,Linear,4,5
 893,2025-07-06,surf_dread,5,Staged,5,2
 894,2025-07-12,surf_crank,3,Linear,5,5
+895,2025-07-19,surf_autosave_fix,5,Staged,5,5
