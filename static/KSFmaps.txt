@@ -168,7 +168,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 167,2012-08-06,surf_globalchaos,3,Staged,3,1
 168,2012-08-06,surf_hurrr,2,Linear,4,0
 169,2012-08-06,surf_impact,3,Staged,6,0
-170,2012-08-06,surf_kalium,4,Staged,3,1
+170,2012-08-06,surf_kalium,4,Staged-Linear,3,1
 171,2012-08-06,surf_leet_xl_beta7z,1,Linear,2,0
 172,2012-08-06,surf_loves_spliff,4,Staged,7,1
 173,2012-08-06,surf_orbion,4,Staged,6,0
