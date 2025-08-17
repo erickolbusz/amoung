@@ -876,7 +876,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 875,2025-03-02,surf_pipeline,2,Linear,4,5
 876,2025-03-08,surf_starvald,7,Linear,4,4
 877,2025-03-16,surf_1998,1,Staged,5,1
-878,2025-03-22,surf_sodacity,1,Staged,5,6
+878,2025-03-22,surf_sodacity,1,Staged-Linear,5,6
 879,2025-03-29,surf_4am,1,Staged,7,6
 880,2025-04-06,surf_kartune,6,Staged,5,6
 881,2025-04-13,surf_technical,5,Linear,4,5
