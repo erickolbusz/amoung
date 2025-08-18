@@ -1126,6 +1126,82 @@ document.getElementById("TodoToggle").addEventListener('change',function() {
 });
 
 
+document.getElementById("ExportButton").onclick = function () { exportVisibleRows(); }
+
+function exportVisibleRows() {
+    //https://stackoverflow.com/questions/13405129/create-and-save-a-file-with-javascript
+    function downloadFile(data, filename) {
+        var file = new Blob([data], {type: "text/plain"});
+        if (window.navigator.msSaveOrOpenBlob) { // IE10+
+            window.navigator.msSaveOrOpenBlob(file, filename);
+        }
+        else { // Others
+            let filea = document.createElement("a");
+            let fileurl = URL.createObjectURL(file);
+            filea.href = fileurl;
+            filea.download = filename;
+            document.body.appendChild(filea);
+            filea.click();
+            setTimeout(function() {
+                document.body.removeChild(filea);
+                window.URL.revokeObjectURL(fileurl);
+            }, 0);
+        }
+    }
+
+    const timestamp = new Date();
+
+    //get the current search query
+    let currFilter = $('#SearchBarMaps').val();
+    if (currFilter === "") { currFilter = "none"; }
+
+    let numMaps = $("#SearchInfo").text();
+
+    //only shown rows
+    let mapStrs = [];
+    table.rows({"search":"applied" }).every( function () {
+        var data = this.data();
+        console.log(data);
+
+        //take stages and bonuses and split into pr and todo strings for readability
+        let currNum, prNum;
+
+        let strstage_pr = "";
+        let strstage_todo = "";
+        for (let i=0; i<data.stage_pr.length; i++) {
+            currNum = +data.stage_pr[i];
+
+            prNum = currNum % globalTodoStageCutoff;
+            strstage_pr += prNum.toString();
+
+            if (prNum !== currNum) { strstage_todo += "1"; }
+            else { strstage_todo += "0"; }
+        }
+
+        let strb_pr = "";
+        let strb_todo = "";
+        for (let i=0; i<data.b_pr.length; i++) {
+            currNum = +data.b_pr[i];
+
+            prNum = currNum % globalTodoStageCutoff;
+            strb_pr += prNum.toString();
+
+            if (prNum !== currNum) { strb_todo += "1"; }
+            else { strb_todo += "0"; }
+        }
+
+        let strgroupTodo = +data.groupTodo; //0 or 1
+
+        mapStrs.push( `${data.mapName},${data.tier},${data.group},${strstage_pr},${strb_pr},${strgroupTodo},${strstage_todo},${strb_todo},${data.map_note}` );
+    });
+
+    //build the file contents
+    let fileStr = `Filter: ${currFilter} ${numMaps}\n\nName,Tier,Group,Stages,Bonuses,MapTodo,StageTodo,BonusTodo,Note`;
+    for (let i=0; i<mapStrs.length; i++) { fileStr += "\n" + mapStrs[i]; }
+
+    //download
+    downloadFile(fileStr,`amongusnyc ${timestamp.toISOString()}.txt`);
+}
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------------- MAIN
 
