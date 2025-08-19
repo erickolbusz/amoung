@@ -17,6 +17,7 @@ async function fetchJSON(url, timeoutMs) {
 document.getElementById("ApiButton").onclick = function() {
 	fetchJSON("https://cors-anywhere.com/https://ksf.surf/api/players/STEAM_0:1:34930102/bestrecords/1?game=css&mode=0", 10000).then(data => {
 		$("#Output").text(data);
+		console.log(data);
 	});
 };
 
