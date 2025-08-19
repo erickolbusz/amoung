@@ -1163,6 +1163,22 @@ function settingsTextInputBlur() {
     updateUnsavedMessage();
 }
 
+function settingsSteamIdBlur() {
+    //make sure its the format of STEAM_X:X:XX...
+    steamIdRegex = /STEAM_[01]:[01]:\d+/i;
+
+    let newVal = $(this).val();
+
+    let steamIdMatch = newVal.match(steamIdRegex);
+    if (steamIdMatch && steamIdMatch[0] === newVal) { //the word needs to be an exact match
+        newSettings[ $(this).attr("id").slice(0,-5) ] = newVal;
+        updateUnsavedMessage();
+    }
+    else {
+        $(this).val(oldSettingsVal); //bad value, put back the old one
+    }
+}
+
 function settingsCheckboxClick() {
     newSettings[ $(this).attr("id").slice(0,-8) ] = this.checked.toString();
     updateUnsavedMessage();
@@ -1271,6 +1287,7 @@ function loadSettingsModal() {
     let settingsFields = [
         "entriesPerPage", "todosPerPage", //pagination
         "navbarTitle", //KSF Checklist
+        "steamId", //Steam ID
         "hideExtraCols", //columns pruning
 
         "bodyFtCol", "bodyBgCol", //global
@@ -1321,6 +1338,7 @@ function loadSettingsModal() {
     //----------------------------------------------------------- fill in the first column of colors
 
     inputValues = [ //input fields [input id, localstorage name]
+        ["steamIdInput", "steamId"], //Steam ID
         ["entriesPerPageInput", "entriesPerPage"], //maps pagination
         ["todosPerPageInput", "todosPerPage"], //todos pagination
 
@@ -1464,6 +1482,12 @@ function loadSettingsModal() {
         element.addEventListener('blur', settingsTextInputBlur);
     });
 
+    Array.from(document.getElementsByClassName("settingsSteamIdInput")).forEach((element) => {
+        element.addEventListener('focus', settingsInputFocus);
+        element.addEventListener('keypress', settingsInputKeyPress);
+        element.addEventListener('blur', settingsSteamIdBlur);
+    });
+
     $("#hideExtraColsCheckbox").click(settingsCheckboxClick);
 
     Array.from(document.getElementsByClassName("settingsMapWidthInput")).forEach((element) => {
@@ -1576,7 +1600,8 @@ function onReadyFunc(callbackFunc,tableID,hasTodoToggle) {
         getFormatter = (x => +x), //str -> num
         setFormatter = (x => x.toString())); //num -> str
 
-    navbarTitle = getInitLocalStorage('navbarTitle', "KSF Checklist"); //num -> str
+    navbarTitle = getInitLocalStorage('navbarTitle', "KSF Checklist");
+    steamId = getInitLocalStorage('steamId', "STEAM_X:X:XXXXXXXX");
 
     //mapTable widths
     MapTableNameWidth = getInitLocalStorage('MapTableNameWidth', 20,

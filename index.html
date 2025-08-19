@@ -77,8 +77,10 @@
             <div class="modal-content">
                 <div class="modalTitle">Update Maps</div>
                 <hr>
-                <a class="btn" id="MaplistUpdateButton">Check for Updates</a> <p id="LastUpdateTimestamp"></p>
+                <a class="btn" id="MaplistUpdateButton">Check for Map Updates</a> <p id="LastUpdateTimestamp"></p>
                 <p id="ModalMapUpdates"></p>
+                <a class="btn" id="KsfUpdateButton">Sync Map Groups with KSF</a> <p id="LastKsfTimestamp"></p>
+                <p id="ModalKsfUpdates"></p>
 
             </div>
             <div class="modal-footer">
@@ -97,6 +99,7 @@
                         <div class="collapsible-header"><i class="material-icons">settings</i>General</div>
                         <div class="collapsible-body">
                             <ul class="modalList">
+                                <li>Steam ID (for syncing groups): <input class="settingsInput settingsSteamIdInput" id="steamIdInput" style="width:180px; margin-bottom: 0px" /></li>
                                 <li>Number of maps per page: <input class="settingsInput settingsNumberInput" id="entriesPerPageInput" style="margin-bottom: 0px" /></li>
                                 <li>Number of todos per page: <input class="settingsInput settingsNumberInput" id="todosPerPageInput" style="margin-bottom: 0px" /></li>
                                 <li>Website title: <input class="settingsInput settingsTextInput" id="navbarTitleInput" style="width:10em; margin-bottom: 0px" /></li>
