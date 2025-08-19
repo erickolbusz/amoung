@@ -3,7 +3,7 @@ async function fetchJSON(url, timeoutMs) {
 	const t = setTimeout(() => ctrl.abort(), timeoutMs);
 	try {
 		const res = await fetch(url, {
-			method: "POST",
+			method: "GET",
 			signal: ctrl.signal,
 			cache: "no-store"
 		});
@@ -15,7 +15,7 @@ async function fetchJSON(url, timeoutMs) {
 }
 
 document.getElementById("ApiButton").onclick = function() {
-	fetchJSON("https://crossorigin.me/https://ksf.surf/api/players/STEAM_0:1:34930102/bestrecords/1?game=css&mode=0", 10000).then(data => {
+	fetchJSON("https://cors-anywhere.com/https://ksf.surf/api/players/STEAM_0:1:34930102/bestrecords/1?game=css&mode=0", 10000).then(data => {
 		$("#Output").text(data);
 	});
 };
