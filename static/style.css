@@ -519,6 +519,9 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 #LastUpdateTimestamp { /* last update time */
 	display: inline;
 }
+#LastSyncTimestamp { /* last sync time */
+	display: inline;
+}
 
 #MapUpdateSuccess { /* kinda self explanatory */
 	font-weight: bold;

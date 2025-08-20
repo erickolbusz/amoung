@@ -831,10 +831,38 @@ function updateLastUpdateTimestamp() {
     document.getElementById('LastUpdateTimestamp').innerText = `(Last update: ${timeStr})`;
 }
 
+function updateLastSyncTimestamp() {
+    let oldTime = Date.parse(localStorage.getItem('lastSync'));
+    let newTime = new Date();
+    let dt = Math.round((newTime - oldTime)/1000); //in seconds
+    let timeStr;
+    if (Number.isNaN(dt)) { //we've never synced
+        timeStr = `never`;
+    }
+    else if (dt < 3) { timeStr = `just now`; }
+    else {
+        if (dt < 60) { timeStr = `${dt} seconds ago`; }
+        else {
+            dt = Math.round(dt/60); //minutes
+            if (dt < 60) { timeStr = (dt === 1) ? `${dt} minute ago` : `${dt} minutes ago`; }
+            else {
+                dt = Math.round(dt/60); //hours
+                if (dt < 24) { timeStr = (dt === 1) ? `${dt} hours ago` : `${dt} hours ago`; }
+                else {
+                    dt = Math.round(dt/24); //days
+                    timeStr = (dt === 1) ? `${dt} day` : `${dt} days ago`;
+                }
+            }
+        }  
+    }
+    document.getElementById('LastSyncTimestamp').innerText = `(Last sync: ${timeStr})`;
+}
+
 function onOpenUpdateModal() {
     newDataNeedRerender = false;
 
     updateLastUpdateTimestamp();
+    updateLastSyncTimestamp();
 }
 
 function onCloseUpdateModal() {
@@ -886,8 +914,16 @@ async function getKsfUpdate() {
     const steamId = getInitLocalStorage('steamId', "STEAM_X:X:XXXXXXXX");
     const syncTextDomId = '#ModalKsfUpdates';
 
-    if (steamId === "STEAM_X:X:XXXXXXXX") { 
+    //stealing this from the timestamp
+    let oldTime = Date.parse(localStorage.getItem('lastSync'));
+    let newTime = new Date();
+    let dt = Math.round((newTime - oldTime)/1000); //in seconds
+
+    if (steamId === "STEAM_X:X:XXXXXXXX") {
         $(syncTextDomId).text(`Go set your Steam ID in Settings first!`);
+    }
+    else if (dt < 60*60*24) {
+        $(syncTextDomId).text(`Please be nice to Sam, this has a cooldown of 24 hours.`);
     }
     else {
         //what we have now
@@ -985,6 +1021,9 @@ async function getKsfUpdate() {
             $('#ModalGroupDns').html(groupDnsStr);
             $('#ModalGroupUps').html(groupUpsStr);
             $('#ModalGroupNws').html(groupNwsStr);
+
+            localStorage.setItem('lastSync',new Date());
+            updateLastSyncTimestamp();
         });
     }
 }
