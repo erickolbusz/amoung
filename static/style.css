@@ -287,12 +287,12 @@ nav ul li div {
 #SearchBarDivMaps {
 	position: relative;
 	display: inline-block;
-	width: calc(100vw - 525px - 162.5px);
+	width: calc(100vw - 525px - 262.5px);
 }
 #SearchBarDivTodo {
 	position: relative;
 	display: inline-block;
-	width: calc(100vw - 525px - 162.5px - 175.5px - 4px - 139.5px - 4px); /* subtract the two extra buttons */
+	width: calc(100vw - 525px - 262.5px - 175.5px - 4px - 139.5px - 4px); /* subtract the two extra buttons */
 }
 #SearchBarMaps, #SearchBarTodo {
 	width: 100%;
