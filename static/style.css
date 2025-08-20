@@ -524,6 +524,25 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 	font-weight: bold;
 }
 
+#ModalKsfUpdates {
+	margin-bottom: 0;
+}
+
+.SyncUpdateText {
+	margin: 0 0 0.5em 0;
+	min-height: 0em;
+	max-height: 10em;
+	overflow-y: scroll;
+	background-color: rgba(0,0,0,0.15);
+}
+#ModalGroupDns {
+	color: var(--comp-cell-0FtCol, #a61919); /* X */
+}
+#ModalGroupUps {
+	color: var(--comp-cell-1FtCol, #27772a); /* check */ 
+}
+#ModalGroupNws {
+}
 
 /* --------------------------------------------------------------------- SETTINGS MODAL */
 

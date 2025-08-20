@@ -23,6 +23,8 @@ var TodoTableNameWidth, TodoTableGoalWidth, TodoTableCurrWidth, TodoTableOrigWid
 //not all of this is needed in its full capacity by both tables but it's more hassle to split the information up
 //-------------------------------------------------------------- GROUPS
 
+var KSFGroupLabels = ["","0","g6","g5","g4","g3","g2","g1","10","9","8","7","6","5","4","3","2","1"]; //from ksf.surf
+
 var groupLabels = ["0","G7","G6","G5","G4","G3","G2","G1","R10","R9","R8","R7","R6","R5","R4","R3","R2","WR"]; //what it's saved as in the db
 var groupContent = ["close","No Group","G6","G5","G4","G3","G2","G1","#10","#9","#8","#7","#6","#5","#4","#3","#2","star"]; //the actual cell content in the table
 var groupIcons = [true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,true]; //is the content a google icon?
@@ -759,6 +761,9 @@ function normBonusTodo(cellNum) { if (isBonusCellTodo(cellNum)) { return cellNum
 
 document.getElementById("MaplistUpdateButton").onclick = function() { getNewMaps(MAPLISTURL); }
 
+document.getElementById("KsfUpdateButton").onclick = function() { getKsfUpdate(); }
+
+
 // document.getElementById("MaplistUpdateButton").onclick = function() { 
 //     let maplistNum = getInitLocalStorage('DEBUGNUM', 2,
 //         getFormatter = (x => +x), //str -> num
@@ -846,6 +851,136 @@ function onCloseUpdateModal() {
         }
     }
 }
+
+async function getKsfUpdate() {
+    async function fetchJSON(url, timeout) {
+        try {
+            let res = await fetch(`http://138.197.39.181:8008/${url}`, { signal: AbortSignal.timeout(timeout) });
+            if (!res.ok) { throw new Error("Response was not ok"); }
+            return res.json(); 
+        }
+        catch (e) {
+            console.error("Error:",e);
+        }
+    }
+
+    //god bless you, this is O(n)
+    //https://stackoverflow.com/a/58227831
+    const joinById = ( ...lists ) =>
+    Object.values(
+        lists.reduce(
+            ( idx, list ) => {
+                list.forEach( ( record ) => {
+                    if( idx[ record.name ] )
+                        idx[ record.name ] = Object.assign( idx[ record.name ], record)
+                    else
+                        idx[ record.name ] = record
+                } )
+                return idx
+            },
+            {}
+        )
+    );
+
+    const steamId = getInitLocalStorage('steamId', "STEAM_X:X:XXXXXXXX");
+    const syncTextDomId = '#ModalKsfUpdates';
+
+    //what we have now
+    let currentData = [];
+    table.rows().data().each((map) => {
+        currentData.push( {name: map.mapName, currgroupi: groupLabels.indexOf(map.group)} );
+    });
+
+    //get all the new ones 5 at a time
+    let newMap, newGroup, data;
+    let newData = [];
+
+    let currPage = 1;
+    let isDone = false;
+    while (true) {
+        data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/bestrecords/${currPage}?game=css&mode=0`, 8000);
+
+            data.records.forEach((map) => {
+                newData.push( {name: map.mapName.slice(5), newgroupi: KSFGroupLabels.indexOf(map.rank)} );
+            });
+
+            console.log(data.records, data.records.length, currPage);
+            if (data.records.length < 5) { isDone = true; }
+
+        $(syncTextDomId).text(`Synced ${currPage-1+data.records.length} maps...`);
+        if (isDone) { 
+            $(syncTextDomId).text( $(syncTextDomId).text() + ` done!` );
+        break; }
+
+        currPage += 5; //grab 5 at a time
+    }
+
+    //merge the two datasets
+    let mergedData = joinById(newData,currentData);
+
+    let groupDns = []; //!rb
+    let groupUps = []; //improved
+    let groupNws = []; //new prs
+
+    //see which ones are changed
+    let groupChangePromises = [];
+    mergedData.forEach((map) => {
+        if (map.newgroupi && map.newgroupi !== map.currgroupi) { //group has changed
+            console.log("CHANGE",map);
+            let changeGroupPromise = function(resolve,reject) {
+                dbChangeGroup(map.name, map.newgroupi-map.currgroupi).then((res) => { 
+                    if (Number.isNaN(Number(res))) {
+                        if (map.currgroupi === 0) { //new pr
+                            map.str = `<b>${map.name}:</b> ${groupLabels[map.newgroupi]}`;
+                            groupNws.push(map);
+                        }
+                        else if (map.currgroupi > map.newgroupi) { //went down groups
+                            map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
+                            groupDns.push(map);
+                        }
+                        else { //went up
+                            map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
+                            groupUps.push(map);
+                        }
+                        resolve(); return;
+                    }
+                    else { resolve(); return; }
+                });
+            }
+
+            groupChangePromises.push(new Promise(changeGroupPromise));
+        }
+    });
+
+    function updateSort(a,b) {
+        if (a.currgroupi == b.currgroupi) { //first go on currgroup
+            if (a.newgroupi == b.newgroupi) { //then newgroup
+                return a.name.localeCompare(b.name); //then name
+            }
+            else { return b.newgroupi - a.newgroupi ; }
+        }
+        else { return b.currgroupi - a.currgroupi; }
+    }
+
+    //once all the groups have changed, display
+    Promise.all(groupChangePromises).then(() => {
+        groupDns.sort(updateSort);
+        groupUps.sort(updateSort);
+        groupNws.sort(updateSort);
+
+        let groupDnsStr = '';
+        let groupUpsStr = '';
+        let groupNwsStr = '';
+        groupDns.forEach((map) => { groupDnsStr += `${map.str}<br>`; });
+        groupUps.forEach((map) => { groupUpsStr += `${map.str}<br>`; });
+        groupNws.forEach((map) => { groupNwsStr += `${map.str}<br>`; });
+
+        $('#ModalGroupDns').html(groupDnsStr);
+        $('#ModalGroupUps').html(groupUpsStr);
+        $('#ModalGroupNws').html(groupNwsStr);
+    });
+}
+
 
 
 //-------------------------------------------------------------- MAP UPDATE DB FUNCS

@@ -59,10 +59,8 @@
             </div>
         </div>
 
-
         <div id="TableWrapper">
-            <table id="TodoTable">
-            </table>
+            <table id="TodoTable"></table>
         </div>
 
 
@@ -70,8 +68,13 @@
             <div class="modal-content">
                 <div class="modalTitle">Update Maps</div>
                 <hr>
-                <a class="btn" id="MaplistUpdateButton">Check for Updates</a> <p id="LastUpdateTimestamp"></p>
+                <a class="btn" id="MaplistUpdateButton">Check for Map Updates</a> <p id="LastUpdateTimestamp"></p>
                 <p id="ModalMapUpdates"></p>
+                <a class="btn" id="KsfUpdateButton">Sync Map Groups with KSF</a> <p id="LastKsfTimestamp"></p>
+                <p id="ModalKsfUpdates"></p>
+                <p class="SyncUpdateText" id="ModalGroupDns"></p>
+                <p class="SyncUpdateText" id="ModalGroupUps"></p>
+                <p class="SyncUpdateText" id="ModalGroupNws"></p>
 
             </div>
             <div class="modal-footer">
@@ -234,7 +237,7 @@
 
                             <div class="FAQQuestion">How do I link my account, import my data, etc.?</div>
                             <div class="FAQAnswer">
-                                I don't have any database access so you can't. Everything has to be put in manually. In the 0% chance that I ever get KSF database access, I'll definitely let you know. If you're a pc player like me and this hurts your soul, consider at least using this site for the todo list or for cheating at surfle.
+                                (At least for now) you can get your groups, and only your groups -- no stage/bonus completions or wrcps/wrbs, synced from ksf.surf by putting your Steam ID in Settings and then going to the Update window. This uses Sam's website in a roundabout way so there may be a delay. More importantly, there's a hard cooldown of a day to not strain the official website. In the meantime you can always manually change your groups by clicking.
                             </div>
 
                             <div class="FAQQuestion">A new map was added but I don't see it here?</div>
