@@ -945,7 +945,7 @@ async function getKsfUpdate() {
                     newData.push( {name: map.mapName.slice(5), newgroupi: KSFGroupLabels.indexOf(map.rank)} );
                 });
 
-                console.log(data.records, data.records.length, currPage);
+                //console.log(data.records, data.records.length, currPage);
                 if (data.records.length < 5) { isDone = true; }
 
             $(syncTextDomId).text(`Synced ${currPage-1+data.records.length} maps...`);
@@ -987,7 +987,7 @@ async function getKsfUpdate() {
                             }
                             resolve(); return;
                         }
-                        else { resolve(); return; }
+                        else { console.log("ERROR SYNCING MAP", map); resolve(); return; }
                     });
                 }
 
