@@ -884,7 +884,7 @@ function onCloseUpdateModal() {
 async function getKsfUpdate() {
     async function fetchJSON(url, timeout) {
         try {
-            let res = await fetch(`http://138.197.39.181:8008/${url}`, { signal: AbortSignal.timeout(timeout) });
+            let res = await fetch(`https://cors.amongus.nyc:8008/${url}`, { signal: AbortSignal.timeout(timeout) });
             if (!res.ok) { throw new Error("Response was not ok"); }
             return res.json(); 
         }
