@@ -6,7 +6,7 @@ var globalDbTimeout = 5000; //in ms
 var note_tempNoteStr = ""; //temp note placeholder
 var isMapPage; //are we on map page or todo page
 var globalCurrentNote; //the current note (for refocusing)
-var newMapsNeedRerender; //do we need to rerender the table when closing the map updater modal?
+var newDataNeedRerender; //do we need to rerender the table when closing the updater modal?
 
 //settings modal stuff
 var oldSettings = {};
@@ -795,7 +795,7 @@ function getNewMaps(url) {
             mapUpdateHTML = '<div id="MapUpdateSuccess">Already up to date!</div>';
         }
         else {
-            newMapsNeedRerender = true;
+            newDataNeedRerender = true;
             mapUpdateHTML = '<div id="MapUpdateSuccess">Update successful:</div>';
         }
         res.forEach((map) => {
@@ -832,12 +832,13 @@ function updateLastUpdateTimestamp() {
 }
 
 function onOpenUpdateModal() {
-    newMapsNeedRerender = false;
+    newDataNeedRerender = false;
+
     updateLastUpdateTimestamp();
 }
 
 function onCloseUpdateModal() {
-    if (newMapsNeedRerender) {
+    if (newDataNeedRerender) {
         if (isMapPage) {
             dbGetAllMaps().then((res) => { if (Array.isArray(res)) {
                 table.clear().rows.add(res).draw(false); //maybe should be changed to add/redraw rows :p
@@ -885,100 +886,107 @@ async function getKsfUpdate() {
     const steamId = getInitLocalStorage('steamId', "STEAM_X:X:XXXXXXXX");
     const syncTextDomId = '#ModalKsfUpdates';
 
-    //what we have now
-    let currentData = [];
-    table.rows().data().each((map) => {
-        currentData.push( {name: map.mapName, currgroupi: groupLabels.indexOf(map.group)} );
-    });
-
-    //get all the new ones 5 at a time
-    let newMap, newGroup, data;
-    let newData = [];
-
-    let currPage = 1;
-    let isDone = false;
-    while (true) {
-        data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/bestrecords/${currPage}?game=css&mode=0`, 8000);
-
-            data.records.forEach((map) => {
-                newData.push( {name: map.mapName.slice(5), newgroupi: KSFGroupLabels.indexOf(map.rank)} );
-            });
-
-            console.log(data.records, data.records.length, currPage);
-            if (data.records.length < 5) { isDone = true; }
-
-        $(syncTextDomId).text(`Synced ${currPage-1+data.records.length} maps...`);
-        if (isDone) { 
-            $(syncTextDomId).text( $(syncTextDomId).text() + ` done!` );
-        break; }
-
-        currPage += 5; //grab 5 at a time
+    if (steamId === "STEAM_X:X:XXXXXXXX") { 
+        $(syncTextDomId).text(`Go set your Steam ID in Settings first!`);
     }
+    else {
+        //what we have now
+        let currentData = [];
+        table.rows().data().each((map) => {
+            currentData.push( {name: map.mapName, currgroupi: groupLabels.indexOf(map.group)} );
+        });
 
-    //merge the two datasets
-    let mergedData = joinById(newData,currentData);
+        //get all the new ones 5 at a time
+        let newMap, newGroup, data;
+        let newData = [];
 
-    let groupDns = []; //!rb
-    let groupUps = []; //improved
-    let groupNws = []; //new prs
+        let currPage = 1;
+        let isDone = false;
+        while (true) {
+            data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/bestrecords/${currPage}?game=css&mode=0`, 8000);
 
-    //see which ones are changed
-    let groupChangePromises = [];
-    mergedData.forEach((map) => {
-        if (map.newgroupi && map.newgroupi !== map.currgroupi) { //group has changed
-            console.log("CHANGE",map);
-            let changeGroupPromise = function(resolve,reject) {
-                dbChangeGroup(map.name, map.newgroupi-map.currgroupi).then((res) => { 
-                    if (Number.isNaN(Number(res))) {
-                        if (map.currgroupi === 0) { //new pr
-                            map.str = `<b>${map.name}:</b> ${groupLabels[map.newgroupi]}`;
-                            groupNws.push(map);
-                        }
-                        else if (map.currgroupi > map.newgroupi) { //went down groups
-                            map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
-                            groupDns.push(map);
-                        }
-                        else { //went up
-                            map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
-                            groupUps.push(map);
-                        }
-                        resolve(); return;
-                    }
-                    else { resolve(); return; }
+                data.records.forEach((map) => {
+                    newData.push( {name: map.mapName.slice(5), newgroupi: KSFGroupLabels.indexOf(map.rank)} );
                 });
-            }
 
-            groupChangePromises.push(new Promise(changeGroupPromise));
-        }
-    });
+                console.log(data.records, data.records.length, currPage);
+                if (data.records.length < 5) { isDone = true; }
 
-    function updateSort(a,b) {
-        if (a.currgroupi == b.currgroupi) { //first go on currgroup
-            if (a.newgroupi == b.newgroupi) { //then newgroup
-                return a.name.localeCompare(b.name); //then name
-            }
-            else { return b.newgroupi - a.newgroupi ; }
+            $(syncTextDomId).text(`Synced ${currPage-1+data.records.length} maps...`);
+            if (isDone) { 
+                $(syncTextDomId).text( $(syncTextDomId).text() + ` done!` );
+            break; }
+
+            currPage += 5; //grab 5 at a time
         }
-        else { return b.currgroupi - a.currgroupi; }
+
+        //merge the two datasets
+        let mergedData = joinById(newData,currentData);
+
+        let groupDns = []; //!rb
+        let groupUps = []; //improved
+        let groupNws = []; //new prs
+
+        //see which ones are changed
+        let groupChangePromises = [];
+        mergedData.forEach((map) => {
+            if (map.newgroupi && map.newgroupi !== map.currgroupi) { //group has changed
+                newDataNeedRerender = true;
+
+                console.log("CHANGE",map);
+                let changeGroupPromise = function(resolve,reject) {
+                    dbChangeGroup(map.name, map.newgroupi-map.currgroupi).then((res) => { 
+                        if (Number.isNaN(Number(res))) {
+                            if (map.currgroupi === 0) { //new pr
+                                map.str = `<b>${map.name}:</b> ${groupLabels[map.newgroupi]}`;
+                                groupNws.push(map);
+                            }
+                            else if (map.currgroupi > map.newgroupi) { //went down groups
+                                map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
+                                groupDns.push(map);
+                            }
+                            else { //went up
+                                map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
+                                groupUps.push(map);
+                            }
+                            resolve(); return;
+                        }
+                        else { resolve(); return; }
+                    });
+                }
+
+                groupChangePromises.push(new Promise(changeGroupPromise));
+            }
+        });
+
+        function updateSort(a,b) {
+            if (a.currgroupi == b.currgroupi) { //first go on currgroup
+                if (a.newgroupi == b.newgroupi) { //then newgroup
+                    return a.name.localeCompare(b.name); //then name
+                }
+                else { return b.newgroupi - a.newgroupi ; }
+            }
+            else { return b.currgroupi - a.currgroupi; }
+        }
+
+        //once all the groups have changed, display
+        Promise.all(groupChangePromises).then(() => {
+            groupDns.sort(updateSort);
+            groupUps.sort(updateSort);
+            groupNws.sort(updateSort);
+
+            let groupDnsStr = '';
+            let groupUpsStr = '';
+            let groupNwsStr = '';
+            groupDns.forEach((map) => { groupDnsStr += `${map.str}<br>`; });
+            groupUps.forEach((map) => { groupUpsStr += `${map.str}<br>`; });
+            groupNws.forEach((map) => { groupNwsStr += `${map.str}<br>`; });
+
+            $('#ModalGroupDns').html(groupDnsStr);
+            $('#ModalGroupUps').html(groupUpsStr);
+            $('#ModalGroupNws').html(groupNwsStr);
+        });
     }
-
-    //once all the groups have changed, display
-    Promise.all(groupChangePromises).then(() => {
-        groupDns.sort(updateSort);
-        groupUps.sort(updateSort);
-        groupNws.sort(updateSort);
-
-        let groupDnsStr = '';
-        let groupUpsStr = '';
-        let groupNwsStr = '';
-        groupDns.forEach((map) => { groupDnsStr += `${map.str}<br>`; });
-        groupUps.forEach((map) => { groupUpsStr += `${map.str}<br>`; });
-        groupNws.forEach((map) => { groupNwsStr += `${map.str}<br>`; });
-
-        $('#ModalGroupDns').html(groupDnsStr);
-        $('#ModalGroupUps').html(groupUpsStr);
-        $('#ModalGroupNws').html(groupNwsStr);
-    });
 }
 
 
