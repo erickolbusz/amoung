@@ -1201,7 +1201,11 @@ async function dbUpdateMapList(url) {
                                     changeStr += `${currentMap.mapType} 🡒 ${newMap.mapType}, `;
                                     currentMap.mapType = newMap.mapType;
                                     //map type has completely changed so just use the stage info of the new map
-                                    currentMap.stage_pr = newMap.stage_pr;
+                                    //UNLESS! we go staged -> or <- stagedlinear
+                                    if (currentMap.stage_pr.length === 0 || newMap.stage_pr.length === 0) { //was linear, or is now linear -- nuke the stage prs
+                                        currentMap.stage_pr = newMap.stage_pr;
+                                    }
+                                    else { } //don't reset the stages
                                 }
 
                                 if (!mapDiffs.s_count && mapDiffs.mapType) { //trigger if stages are different, but if maptype changes then we already know it's different
