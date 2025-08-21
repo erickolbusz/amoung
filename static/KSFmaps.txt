@@ -6,7 +6,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 5,2012-08-01,surf_diamond_beta1,5,Staged,4,1
 6,2012-08-01,surf_discovery,4,Staged,5,0
 7,2012-08-01,surf_eclipse,2,Staged,3,0
-8,2012-08-01,surf_eternal_beta,4,Staged,2,0
+8,2012-08-01,surf_eternal_beta,4,Staged-Linear,2,0
 9,2012-08-01,surf_fruits,3,Staged,10,1
 10,2012-08-01,surf_ing,2,Linear,7,2
 11,2012-08-01,surf_kz_mix_journeys,2,Linear,6,3
