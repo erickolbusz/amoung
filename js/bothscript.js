@@ -1001,7 +1001,7 @@ function updateLastUpdateTimestamp() {
                 if (dt < 24) { timeStr = (dt === 1) ? `${dt} hours ago` : `${dt} hours ago`; }
                 else {
                     dt = Math.round(dt/24); //days
-                    timeStr = (dt === 1) ? `${dt} day` : `${dt} days ago`;
+                    timeStr = (dt === 1) ? `${dt} day ago` : `${dt} days ago`;
                 }
             }
         }  
@@ -1028,7 +1028,7 @@ function updateLastSyncTimestamp() {
                 if (dt < 24) { timeStr = (dt === 1) ? `${dt} hours ago` : `${dt} hours ago`; }
                 else {
                     dt = Math.round(dt/24); //days
-                    timeStr = (dt === 1) ? `${dt} day` : `${dt} days ago`;
+                    timeStr = (dt === 1) ? `${dt} day ago` : `${dt} days ago`;
                 }
             }
         }  
