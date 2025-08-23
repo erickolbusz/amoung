@@ -252,12 +252,12 @@
 
                             <div class="FAQQuestion">How do I link my account, import my data, etc.?</div>
                             <div class="FAQAnswer">
-                                (At least for now) you can get your groups, and only your groups -- no stage/bonus completions or wrcps/wrbs, synced from ksf.surf by putting your Steam ID in Settings and then going to the Update window. This uses Sam's website in a roundabout way so there may be a delay. More importantly, there's a hard cooldown of a day to not strain the official website. In the meantime you can always manually change your groups by clicking.
+                                Add your Steam ID in <a class="btn" id="helpModalRefreshButton"><i class="material-icons">settings</i></a>, then go to the <a class="btn" id="helpModalRefreshButton"><i class="material-icons">refresh</i></a> window. This uses the official ksf.surf website in a roundabout way so the full syncing takes a few minutes. More importantly, there's a hard cooldown of a day. In the meantime you can always change your groups manually by clicking.
                             </div>
 
                             <div class="FAQQuestion">A new map was added but I don't see it here?</div>
                             <div class="FAQAnswer">
-                                Click the <a class="btn" id="helpModalRefreshButton"><i class="material-icons">refresh</i></a> button to check for map updates. The full list of maps is <a href="static/KSFmaps.txt">here (view)</a> or <a href="static/KSFmaps.csv">here (.csv download)</a> and I update it manually, so there might be a short delay after a map is added. If the short delay turns into a long delay and the list still isn't updated, please yell at me on discord. Also, if you ever find any data is wrong, please yell at me on discord. Special thanks to <a href="https://fastdl.me/">fastdl.me</a> for hosting downloads. 
+                                Click "Check for map updates" in the <a class="btn" id="helpModalRefreshButton"><i class="material-icons">refresh</i></a> window to check for map updates. I manually update all map info <a href="static/KSFmaps.txt">here (view)</a> or <a href="static/KSFmaps.csv">here (.csv download)</a> to not tax KSF resources more, please bear with me if there's a short delay after a map is added. If the short delay turns into a long delay and the list still isn't updated you can yell at me on discord. Also, if you ever find any data is wrong, also yell at me on discord. Special thanks to <a href="https://fastdl.me/">fastdl.me</a> for hosting downloads. 
                             </div>
 
                             <div class="FAQQuestion">I hate your color scheme (this isn't really a question)</div>
@@ -335,7 +335,7 @@
                                     <div class="FAQAnswer">
                                         <table>
                                             <tr>
-                                                <td class="leftHelpTableTd"><span class="groupNameInline">Staged</span></td>
+                                                <td class="leftHelpTableTd"><span class="searchNameInline">Staged</span></td>
                                                 <td class="rightHelpTableTd">type:staged</td>
                                             </tr>
                                             <tr>
@@ -447,31 +447,31 @@
                                     <div class="FAQAnswer">
                                         <table>
                                             <tr>
-                                                <td class="leftHelpTableTd"><span class="groupNameInline">Improve</span></td>
+                                                <td class="leftHelpTableTd"><span class="searchNameInline">Improve</span></td>
                                                 <td class="rightHelpTableTd">g=imp(rove)</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="groupNameInline">Complete</span></td>
+                                                <td><span class="searchNameInline">Complete</span></td>
                                                 <td>g=pr, g=comp(lete)</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="groupNameInline">Group (ex. Group 3)</span></td>
+                                                <td><span class="searchNameInline">Group (ex. Group 3)</span></td>
                                                 <td>g=g3, g=group3</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="groupNameInline">Top</span></td>
+                                                <td><span class="searchNameInline">Top</span></td>
                                                 <td>g=top</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="groupNameInline">WR</span></td>
+                                                <td><span class="searchNameInline">WR</span></td>
                                                 <td>g=wr</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="groupNameInline">WRCP</span></td>
+                                                <td><span class="searchNameInline">WRCP</span></td>
                                                 <td>g=wrcp</td>
                                             </tr>
                                             <tr>
-                                                <td><span class="groupNameInline">WRB</span></td>
+                                                <td><span class="searchNameInline">WRB</span></td>
                                                 <td>g=wrb</td>
                                             </tr>
                                         </table>
@@ -527,6 +527,23 @@
                 <a class="modalExitButton modal-close btn ">Close</a>
             </div>
         </div>
+
+
+        <div id="AnnouncementModal" class="modal">
+            <div class="center-align">
+                <div class="modal-content">
+                    <div class="modalTitle">News</div>
+                    <hr>
+                    You can now sync all your data with KSF! Add your Steam ID in <a class="btn" id="helpModalRefreshButton"><i class="material-icons">settings</i></a>, then go to the <a class="btn" id="helpModalRefreshButton"><i class="material-icons">refresh</i></a> window.
+                    <br>
+                    <img src="static/img/mapsync.png" style="margin-top:1em" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modalExitButton modal-close btn ">Cool</a>
+            </div>
+        </div>
+
 
         <script src="js/bothscript.js"></script>
         <script src="js/todoscript.js"></script>

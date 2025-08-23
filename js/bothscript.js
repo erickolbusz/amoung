@@ -1,7 +1,10 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------- GLOBALS
+const CURRANNOUNCEVERSION = "v3"; //update this when new announcement is made
+const SHOWANNOUNCEMENT = true;
+
+const MAPLISTURL = "https://amongus.nyc/static/KSFmaps.csv";
 var db;
 var table;
-const MAPLISTURL = "https://amongus.nyc/static/KSFmaps.csv";
 var globalDbTimeout = 5000; //in ms
 var note_tempNoteStr = ""; //temp note placeholder
 var isMapPage; //are we on map page or todo page
@@ -2187,6 +2190,7 @@ function onReadyFunc(callbackFunc,tableID,hasTodoToggle) {
     M.Modal.init(modalElems[0],{onOpenStart: onOpenUpdateModal, onCloseStart: onCloseUpdateModal}); //update
     M.Modal.init(modalElems[1],{onOpenStart: loadSettingsModal}); //settings
     M.Modal.init(modalElems[2],); //help
+    let announcementModal = M.Modal.init(modalElems[3],); //announcements
 
     //instantiate collection
     let collapsibleElems = document.querySelectorAll('.collapsible');
@@ -2262,4 +2266,10 @@ function onReadyFunc(callbackFunc,tableID,hasTodoToggle) {
             alert(dberr);
         }
     );
+
+    let lastAnnouncement = getInitLocalStorage('lastAnnouncement', null);
+    if (SHOWANNOUNCEMENT && lastAnnouncement !== CURRANNOUNCEVERSION) {
+        localStorage.setItem('lastAnnouncement', CURRANNOUNCEVERSION);
+        announcementModal.open();
+    } 
 }
