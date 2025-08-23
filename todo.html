@@ -70,12 +70,27 @@
                 <hr>
                 <a class="btn" id="MaplistUpdateButton">Check for Map Updates</a> <p id="LastUpdateTimestamp"></p>
                 <p id="ModalMapUpdates"></p>
-                <a class="btn" id="KsfUpdateButton">Sync Map Groups with KSF</a> <p id="LastSyncTimestamp"></p>
+                <a class="btn" id="KsfUpdateButton">Sync Data with KSF</a> <p id="LastSyncTimestamp"></p>
+                <p id="ModalKsfUpdatesError"></p>
                 <p id="ModalKsfUpdates"></p>
-                <p class="SyncUpdateText" id="ModalGroupDns"></p>
-                <p class="SyncUpdateText" id="ModalGroupUps"></p>
-                <p class="SyncUpdateText" id="ModalGroupNws"></p>
-
+                <div class="SyncUpdateTextHeader" id="ModalSyncGroupsHeader">Groups</div>
+                <div class="SyncUpdateText" id="ModalSyncGroups">
+                    <p class="SyncTexts SyncDns" id="ModalGroupDns"></p>
+                    <p class="SyncTexts SyncUps" id="ModalGroupUps"></p>
+                    <p class="SyncTexts SyncNws" id="ModalGroupNws"></p>
+                </div>
+                <div class="SyncUpdateTextHeader" id="ModalSyncStagesHeader">Stages</div>
+                <div class="SyncUpdateText" id="ModalSyncStages">
+                    <p class="SyncTexts SyncDns" id="ModalStageDns"></p>
+                    <p class="SyncTexts SyncUps" id="ModalStageUps"></p>
+                    <p class="SyncTexts SyncNws" id="ModalStageNws"></p>
+                </div>
+                <div class="SyncUpdateTextHeader" id="ModalSyncBonusesHeader">Bonuses</div>
+                <div class="SyncUpdateText" id="ModalSyncBonuses">
+                    <p class="SyncTexts SyncDns" id="ModalBonusDns"></p>
+                    <p class="SyncTexts SyncUps" id="ModalBonusUps"></p>
+                    <p class="SyncTexts SyncNws" id="ModalBonusNws"></p>
+                </div>
             </div>
             <div class="modal-footer">
                 <a class="modalExitButton modal-close btn ">Close</a>

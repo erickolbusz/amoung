@@ -23,7 +23,7 @@ var TodoTableNameWidth, TodoTableGoalWidth, TodoTableCurrWidth, TodoTableOrigWid
 //not all of this is needed in its full capacity by both tables but it's more hassle to split the information up
 //-------------------------------------------------------------- GROUPS
 
-var KSFGroupLabels = ["","0","g6","g5","g4","g3","g2","g1","10","9","8","7","6","5","4","3","2","1"]; //from ksf.surf
+// var KSFGroupContent = ["N/A",null,6,5,4,3,2,1,"10","9","8","7","6","5","4","3","2","1"]; //from ksf.surf, [0] is NOT USED!! USE COMPLETION TO CHECK IF COMPLETE
 
 var groupLabels = ["0","G7","G6","G5","G4","G3","G2","G1","R10","R9","R8","R7","R6","R5","R4","R3","R2","WR"]; //what it's saved as in the db
 var groupContent = ["close","No Group","G6","G5","G4","G3","G2","G1","#10","#9","#8","#7","#6","#5","#4","#3","#2","star"]; //the actual cell content in the table
@@ -426,7 +426,7 @@ async function dbGetAllMaps() {
 //-------------------------------------------------------------- GROUPS
 
 async function dbChangeGroup(mapName,dGroup) {
-    if (db) {
+    if (db && dGroup !== 0) {
         return new Promise(function(resolve,reject) {
             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
             const requestGet = mapTable.index("mapName").get(mapName);
@@ -468,11 +468,47 @@ async function dbChangeGroup(mapName,dGroup) {
     else { return -1; }
 }
 
+// async function dbSyncSetGroup(mapName,groupLabeli) {
+//     if (db) {
+//         return new Promise(function(resolve,reject) {
+//             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
+//             const requestGet = mapTable.index("mapName").get(mapName);
+//                     // console.log("AAA");
+
+//             requestGet.onsuccess = function() {
+//                     // console.log("AA");
+//                 if (requestGet.result !== undefined) {
+//                     let mapInfo = requestGet.result;
+//                     // console.log("A",mapInfo);
+//                     mapInfo.group = groupLabels[groupLabeli];
+//                     // console.log("B",mapInfo);
+
+//                     if (isPerfect(mapInfo)) { mapInfo.isComplete = compContent[2]; }
+//                     else if (isComplete(mapInfo)) { mapInfo.isComplete = compContent[1]; }
+//                     else { mapInfo.isComplete = compContent[0]; }
+
+//                     // console.log("C",mapInfo);
+
+//                     const requestUpdate = mapTable.put(mapInfo);
+
+//                     requestUpdate.onsuccess = function() {
+//                         resolve(mapInfo); return;
+//                     }
+//                     requestUpdate.onerror = function() { resolve(-4); return; }
+//                 } 
+//                 else { resolve(-3); return; } //no maps for that tier
+//             }
+//             requestGet.onerror = function() { resolve(-2); return; }
+//         });
+//     }
+//     else { return -1; }
+// }
+
 
 //-------------------------------------------------------------- STAGES
 
 async function dbChangeStage(mapName,stagei,dStage) {
-    if (db) {
+    if (db && dStage !== 0) {
         return new Promise(function(resolve,reject) {
             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
             const requestGet = mapTable.index("mapName").get(mapName);
@@ -515,11 +551,51 @@ async function dbChangeStage(mapName,stagei,dStage) {
     else { return -1; }
 }
 
+// async function dbSyncSetStage(mapName,stageStr) { //overwrite stage pr str
+//     if (db) {
+//         return new Promise(function(resolve,reject) {
+//             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
+//             const requestGet = mapTable.index("mapName").get(mapName);
+
+//             requestGet.onsuccess = function() {
+//                 if (requestGet.result !== undefined) {
+//                     let mapInfo = requestGet.result;
+
+//                     //have to copy over the todos from the old str lol
+//                     let prStr = mapInfo.stage_pr;
+//                     let newPrStr = "";
+//                     for (let si=0; si<prStr.length; si++) {
+//                         if (isStageCellTodo(prStr[si])) { newPrStr += makeStageTodo(stageStr[si]); }
+//                         else { newPrStr += stageStr[si]; }
+//                     }
+
+//                     mapInfo.stage_pr = newPrStr;
+
+//                     //check for completes etc
+//                     if (isPerfect(mapInfo)) { mapInfo.isComplete = compContent[2]; }
+//                     else if (isComplete(mapInfo)) { mapInfo.isComplete = compContent[1]; }
+//                     else { mapInfo.isComplete = compContent[0]; }
+
+//                     const requestUpdate = mapTable.put(mapInfo);
+
+//                     requestUpdate.onsuccess = function() {
+//                         resolve(mapInfo); return;
+//                     }
+//                     requestUpdate.onerror = function() { resolve(-5); return; }
+//                 } 
+//                 else { resolve(-3); return; } //no maps for that tier
+//             }
+//             requestGet.onerror = function() { resolve(-2); return; }
+//         });
+//     }
+//     else { return -1; }
+// }
+
 
 //-------------------------------------------------------------- BONUSES
 
 async function dbChangeBonus(mapName,bonusi,dBonus) {
-    if (db) {
+    if (db && dBonus !== 0) {
         return new Promise(function(resolve,reject) {
             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
             const requestGet = mapTable.index("mapName").get(mapName);
@@ -553,6 +629,103 @@ async function dbChangeBonus(mapName,bonusi,dBonus) {
                         resolve(mapInfo); return;
                     }
                     requestUpdate.onerror = function() { resolve(-5); return; }
+                } 
+                else { resolve(-3); return; } //no maps for that tier
+            }
+            requestGet.onerror = function() { resolve(-2); return; }
+        });
+    }
+    else { return -1; }
+}
+
+// async function dbSyncSetBonus(mapName,bonusStr) { //overwrite bonus pr str
+//     if (db) {
+//         return new Promise(function(resolve,reject) {
+//             const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
+//             const requestGet = mapTable.index("mapName").get(mapName);
+
+//             requestGet.onsuccess = function() {
+//                 if (requestGet.result !== undefined) {
+//                     let mapInfo = requestGet.result;
+
+
+
+//                     //check for completes etc
+//                     if (isPerfect(mapInfo)) { mapInfo.isComplete = compContent[2]; }
+//                     else if (isComplete(mapInfo)) { mapInfo.isComplete = compContent[1]; }
+//                     else { mapInfo.isComplete = compContent[0]; }
+
+//                     const requestUpdate = mapTable.put(mapInfo);
+
+//                     requestUpdate.onsuccess = function() {
+//                         resolve(mapInfo); return;
+//                     }
+//                     requestUpdate.onerror = function() { resolve(-5); return; }
+//                 } 
+//                 else { resolve(-3); return; } //no maps for that tier
+//             }
+//             requestGet.onerror = function() { resolve(-2); return; }
+//         });
+//     }
+//     else { return -1; }
+// }
+
+
+//-------------------------------------------------------------- GROUP, STAGE, BONUS ALL AT ONCE FOR SYNC
+
+async function dbSyncSetMapData(mapName,groupLabeli,stageStr,bonusStr) {
+    if (db) {
+        return new Promise(function(resolve,reject) {
+                                                                                                                                    // let start = performance.now(); let end;
+            const mapTable = db.transaction("maps", "readwrite").objectStore("maps");
+            const requestGet = mapTable.index("mapName").get(mapName);
+
+            requestGet.onsuccess = function() {
+
+                if (requestGet.result !== undefined) {
+                                                                                                                                    // end = performance.now();
+                                                                                                                                    //console.log(mapName,"REQ1",end-start);                                                                                                                                    
+
+                    let mapInfo = requestGet.result;
+
+                    mapInfo.group = groupLabels[groupLabeli];
+
+                    //have to copy over the todos from the old str lol
+                    let prStr = mapInfo.stage_pr;
+                    let newPrStr = "";
+                    for (let si=0; si<prStr.length; si++) {
+                        if (isStageCellTodo(prStr[si])) { newPrStr += makeStageTodo(stageStr[si]); }
+                        else { newPrStr += stageStr[si]; }
+                    }
+                    mapInfo.stage_pr = newPrStr;
+
+
+                    //have to copy over the todos from the old str lol
+                    prStr = mapInfo.b_pr;
+                    newPrStr = "";
+                    for (let bi=0; bi<prStr.length; bi++) {
+                        if (isBonusCellTodo(prStr[bi])) { newPrStr += makeBonusTodo(bonusStr[bi]); }
+                        else { newPrStr += bonusStr[bi]; }
+                    }
+
+                    mapInfo.b_pr = newPrStr;
+
+
+                    if (isPerfect(mapInfo)) { mapInfo.isComplete = compContent[2]; }
+                    else if (isComplete(mapInfo)) { mapInfo.isComplete = compContent[1]; }
+                    else { mapInfo.isComplete = compContent[0]; }
+
+                                                                                                                                    // var end = performance.now();
+                                                                                                                                    //console.log(mapName,"DONE",end-start); 
+                    const requestUpdate = mapTable.put(mapInfo);
+
+                    requestUpdate.onsuccess = function() {
+
+                                                                                                                                    // var end = performance.now();
+                                                                                                                                    //console.log(mapName,"REQ2",end-start); 
+                        resolve(mapInfo); return;
+                    }
+                    requestUpdate.onerror = function() { resolve(-4); return; }
                 } 
                 else { resolve(-3); return; } //no maps for that tier
             }
@@ -749,11 +922,13 @@ function isStageCellTodo(cell) {
     return (cell >= globalTodoStageCutoff);
 }
 function normStageTodo(cellNum) { if (isStageCellTodo(cellNum)) { return cellNum-globalTodoStageCutoff; } return cellNum; }
+function makeStageTodo(cellStr) { let tmp = +cellStr; if (tmp < globalTodoStageCutoff) { tmp += globalTodoStageCutoff; } return tmp.toString(); }
 function isBonusCellTodo(cell) {
     cell = +cell;
     return (cell >= globalTodoBonusCutoff);
 }
 function normBonusTodo(cellNum) { if (isBonusCellTodo(cellNum)) { return cellNum-globalTodoBonusCutoff; } return cellNum; }
+function makeBonusTodo(cellStr) { let tmp = +cellStr; if (tmp < globalTodoBonusCutoff) { tmp += globalTodoBonusCutoff; } return tmp.toString(); }
 
 
 
@@ -863,6 +1038,10 @@ function onOpenUpdateModal() {
 
     updateLastUpdateTimestamp();
     updateLastSyncTimestamp();
+
+    $(".SyncTexts").hide();
+    $(".SyncUpdateText").hide();
+    $(".SyncUpdateTextHeader").hide();
 }
 
 function onCloseUpdateModal() {
@@ -895,24 +1074,24 @@ async function getKsfUpdate() {
 
     //god bless you, this is O(n)
     //https://stackoverflow.com/a/58227831
-    const joinById = ( ...lists ) =>
-    Object.values(
-        lists.reduce(
-            ( idx, list ) => {
-                list.forEach( ( record ) => {
-                    if( idx[ record.name ] )
-                        idx[ record.name ] = Object.assign( idx[ record.name ], record)
-                    else
-                        idx[ record.name ] = record
-                } )
-                return idx
-            },
-            {}
-        )
-    );
+    // const joinById = ( ...lists ) =>
+    // Object.values(
+    //     lists.reduce(
+    //         ( idx, list ) => {
+    //             list.forEach( ( record ) => {
+    //                 if( idx[ record.name ] )
+    //                     idx[ record.name ] = Object.assign( idx[ record.name ], record)
+    //                 else
+    //                     idx[ record.name ] = record
+    //             } )
+    //             return idx
+    //         },
+    //         {}
+    //     )
+    // );
 
     const steamId = getInitLocalStorage('steamId', "STEAM_X:X:XXXXXXXX");
-    const syncTextDomId = '#ModalKsfUpdates';
+
 
     //stealing this from the timestamp
     let oldTime = Date.parse(localStorage.getItem('lastSync'));
@@ -923,108 +1102,366 @@ async function getKsfUpdate() {
         $(syncTextDomId).text(`Go set your Steam ID in Settings first!`);
     }
     else if (dt < 60*60*24) {
-        $(syncTextDomId).text(`Please be nice to Sam, this has a cooldown of 24 hours.`);
+        $(syncTextDomId).text(`Please be nice to Sam, this has a cooldown of 24 hours. You can manually update by clicking in the meantime.`);
     }
     else {
-        //what we have now
-        let currentData = [];
+        let syncData = [];
         table.rows().data().each((map) => {
-            currentData.push( {name: map.mapName, currgroupi: groupLabels.indexOf(map.group)} );
+            // if (map.tier==1) {
+
+            syncData.push( {name: map.mapName, 
+                currgroupi: groupLabels.indexOf(map.group),
+                currstage_pr: map.stage_pr,
+                currb_pr: map.b_pr
+            }); //what we have now
+
+            // }
         });
 
-        //get all the new ones 5 at a time
-        let newMap, newGroup, data;
-        let newData = [];
 
-        let currPage = 1;
-        let isDone = false;
-        while (true) {
-            data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/bestrecords/${currPage}?game=css&mode=0`, 8000);
-
-                data.records.forEach((map) => {
-                    newData.push( {name: map.mapName.slice(5), newgroupi: KSFGroupLabels.indexOf(map.rank)} );
-                });
-
-                console.log(data.records, data.records.length, currPage);
-                if (data.records.length < 5) { isDone = true; }
-
-            $(syncTextDomId).text(`Synced ${currPage-1+data.records.length} maps...`);
-            if (isDone) { 
-                $(syncTextDomId).text( $(syncTextDomId).text() + ` done!` );
-            break; }
-
-            currPage += 5; //grab 5 at a time
+        let mapsSynced = 0;
+        function updateSyncMessagePart1(mapsSynced) {
+            $("#ModalKsfUpdates").text(`Got data for ${mapsSynced} maps...`);
+        }
+        function updateSyncMessagePart2() {
+            $("#ModalKsfUpdates").text(`Got data for all maps. Syncing...`);
+        }
+        function updateSyncMessagePart3() {
+            $("#ModalKsfUpdates").text(`All maps synced!`);
         }
 
-        //merge the two datasets
-        let mergedData = joinById(newData,currentData);
+        // syncData = [{name: "mesa_fixed", currgroupi:0, currstage_pr:"", currb_pr:""}];
 
-        let groupDns = []; //!rb
+    // let start = performance.now();
+    // function ptime() { return `T=${performance.now()-start}`; }
+
+        for (let mi=0; mi<syncData.length; mi++){
+            let map = syncData[mi];
+
+            //console.log(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`);
+            // console.log(ptime(),mi,"START");
+            let data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`, 8000);
+            // console.log(ptime(),mi,"API");
+
+            //get current group
+            //console.log("YO!", data.records);
+            //console.log("YO!", data.records[0]);
+            if (data.records[0].completions) { //has beaten the map
+                let syncGroup = data.records[0].group;
+                //console.log("YO!", syncGroup);
+                switch (syncGroup) {
+                    case null: //G7
+                        map.newgroupi = groupLabels.indexOf("G7");
+                        //console.log("surely this works)");
+                        break;
+                    case 0: //top or wr
+                        if (data.records[0].rank === 1) { map.newgroupi = groupLabels.indexOf("WR"); } //wr
+                        else { map.newgroupi = groupLabels.indexOf(`R${data.records[0].rank}`); } //top
+                        break;
+                    default: //1, 2, 3, 4, 5, 6 or maybe sam changed the api to troll me
+                        if (!(syncGroup === 1 || syncGroup === 2 || syncGroup === 3 || syncGroup === 4 || syncGroup === 5 || syncGroup === 6)) { $("ModalKsfUpdatesError").text("The API has changed, let me know NOW (group codes have changed)"); }
+                        map.newgroupi = groupLabels.indexOf(`G${syncGroup}`);
+                        break;
+                }
+            }
+            else { map.newgroupi = map.currgroupi; }
+
+            //get current stages and bonuses
+            let newstage_pr = []; //easier to .join() an array because strings are immutable
+            let currStage;
+            for (let si=0; si<map.currstage_pr.length; si++) {
+                currStage = data.records.find(x => x.zoneId === si+1);
+                //console.log("???",currStage);
+                if (!currStage) { $("ModalKsfUpdatesError").text("The API has changed, let me know NOW (stage zoneIds have changed)"); }
+                else if (currStage.completions) { //stage has been beaten
+                    if (currStage.rank === 1) { newstage_pr.push("2"); } //wrcp
+                    else { newstage_pr.push("1"); }
+                }
+                else { newstage_pr.push("0"); }
+            }
+            map.newstage_pr = newstage_pr.join("");
+
+            let newb_pr = [];
+            let currBonus;
+            for (let bi=0; bi<map.currb_pr.length; bi++) {
+                // console.log(bi+1+30, map);
+                // console.log(data.records);
+
+                currBonus = data.records.find(x => x.zoneId === bi+1+30);
+                if (!currBonus) { $("ModalKsfUpdatesError").text("The API has changed, let me know NOW (bonus zoneIds have changed)"); }
+                else if (currBonus.completions) { //bonus has been beaten
+                    if (currBonus.rank === 1) { newb_pr.push("2"); } //wrb
+                    else { newb_pr.push("1"); }
+                }
+                else { newb_pr.push("0"); }
+            }
+            map.newb_pr = newb_pr;
+
+
+            mapsSynced++;
+            updateSyncMessagePart1(mapsSynced);
+            // console.log(ptime(),mi,"DONE");
+            // console.log(map);
+        };
+
+
+        updateSyncMessagePart2(mapsSynced);
+
+        // //merge the two datasets
         let groupUps = []; //improved
+        let groupDns = []; //!rb
         let groupNws = []; //new prs
 
-        //see which ones are changed
-        let groupChangePromises = [];
-        mergedData.forEach((map) => {
-            if (map.newgroupi && map.newgroupi !== map.currgroupi) { //group has changed
-                newDataNeedRerender = true;
+        let wrcpUps = []; //gotten
+        let wrcpDns = []; //lost
+        let stagePrs = [];
 
-                console.log("CHANGE",map);
-                let changeGroupPromise = function(resolve,reject) {
-                    dbChangeGroup(map.name, map.newgroupi-map.currgroupi).then((res) => { 
-                        if (Number.isNaN(Number(res))) {
-                            if (map.currgroupi === 0) { //new pr
-                                map.str = `<b>${map.name}:</b> ${groupLabels[map.newgroupi]}`;
-                                groupNws.push(map);
+        let wrbUps = []; //gotten
+        let wrbDns = []; //lost
+        let bonusPrs = [];
+
+        //line up what's changed
+        let mapChangePromises;
+
+        let CHUNKSIZE = 25; //do them in groups. im scared
+        let mapBatch;
+        // let start = performance.now();
+        // function ptime() { return `T=${performance.now()-start}`; }
+
+        let anyGroupUpdates = false;
+        let anyStageUpdates = false;
+        let anyBonusUpdates = false;
+
+        for (let mapi=0; mapi<syncData.length; mapi+=CHUNKSIZE) {
+            mapBatch = syncData.slice(mapi,mapi+CHUNKSIZE);
+            mapChangePromises = [];
+
+            mapBatch.forEach((map) => {
+
+                let mapUpdatePromise = function(resolve,reject) {
+                    if (map.currgroupi !== map.newgroupi || map.currstage_pr !== map.newstage_pr || map.currb_pr !== map.newb_pr) {
+                        //console.log(ptime(),"ready to go to db",map.name);
+                        dbSyncSetMapData(map.name,map.newgroupi,map.newstage_pr,map.newb_pr).then((res) => {
+                            //console.log(ptime(),"got db response",map.name);
+                            if (Number.isNaN(Number(res))) {
+                                //console.log(map);
+
+                                //console.log(ptime(),"    A",map.name);
+
+                                if (map.newgroupi !== map.currgroupi) {
+                                    anyGroupUpdates = true;
+                                    if (map.newgroupi !== 0 && map.currgroupi === 0) { //new pr
+                                        groupNws.push({name: map.name, currgroupi: map.currgroupi, newgroupi: map.newgroupi, str: `<b>${map.name}:</b> ${groupLabels[map.newgroupi]}`});
+                                    }
+                                    else if (map.currgroupi > map.newgroupi) { //went down groups
+                                        groupDns.push({name: map.name, currgroupi: map.currgroupi, newgroupi: map.newgroupi, str: `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`});
+                                    }
+                                    else { //went up
+                                        groupUps.push({name: map.name, currgroupi: map.currgroupi, newgroupi: map.newgroupi, str: `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`});
+                                    }
+                                }
+
+                                //console.log(ptime(),"    B",map.name);
+
+                                //see if we gained or lost any wrcps or beat something new
+                                for (let si=0; si<map.newstage_pr.length; si++) {
+                                    //console.log(ptime(),"        ",si,map.name);
+                                    if (map.newstage_pr[si] === "2" && map.currstage_pr[si] !== "2") { //gained wrcp
+                                        anyStageUpdates = true;
+                                        wrcpUps.push({name: map.name, stage: si+1, str: `<b>${map.name}</b> S${si+1}`});
+                                    }
+                                    else if (map.newstage_pr[si] !== "2" && map.currstage_pr[si] === "2") { //lost wrcp
+                                        anyStageUpdates = true;
+                                        wrcpDns.push({name: map.name, stage: si+1, str: `<b>${map.name}</b> S${si+1}`});
+                                    }
+                                    else if (map.newgroupi === 0 && map.newstage_pr[si] !== "0" && map.currstage_pr[si] === "0") { //beat only this stage, not the whole map
+                                        anyStageUpdates = true;
+                                        stagePrs.push({name: map.name, stage: si+1, str: `<b>${map.name}</b> S${si+1}`});
+                                    }
+                                }
+
+                                //console.log(ptime(),"    C",map.name);
+
+                                //see if we gained or lost any wrbs or beat something new
+                                for (let bi=0; bi<map.newb_pr.length; bi++) {
+                                    //console.log(ptime(),"        ",bi,map.name);
+                                    if (map.newb_pr[bi] === "2" && map.currb_pr[bi] !== "2") { //gained wrb
+                                        anyBonusUpdates = true;
+                                        wrbUps.push({name: map.name, bonus: bi+1, str: `<b>${map.name}</b> B${bi+1}`});
+                                    }
+                                    if (map.newb_pr[bi] !== "2" && map.currb_pr[bi] === "2") { //lost wrb
+                                        anyBonusUpdates = true;
+                                        wrbDns.push({name: map.name, bonus: bi+1, str: `<b>${map.name}</b> B${bi+1}`});
+                                    }
+                                    else if (map.newb_pr[bi] !== "0" && map.currb_pr[bi] === "0") { //beat
+                                        anyBonusUpdates = true;
+                                        bonusPrs.push({name: map.name, bonus: bi+1, str: `<b>${map.name}</b> B${bi+1}`});
+                                    }
+                                }
+
+                                //console.log(ptime(),"    D",map.name);
+                                resolve(); return;
                             }
-                            else if (map.currgroupi > map.newgroupi) { //went down groups
-                                map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
-                                groupDns.push(map);
-                            }
-                            else { //went up
-                                map.str = `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`;
-                                groupUps.push(map);
-                            }
-                            resolve(); return;
-                        }
-                        else { console.log("ERROR SYNCING MAP", map); resolve(); return; }
-                    });
+                            else { console.log("ERROR UDPATING MAP", map); resolve(); return; }
+                        });
+
+                    }
                 }
+                
+                //console.log(ptime(),"PUSHING",map.name);
+                mapChangePromises.push(new Promise(mapUpdatePromise));
 
-                groupChangePromises.push(new Promise(changeGroupPromise));
-            }
-        });
 
-        function updateSort(a,b) {
+            });
+
+
+            //console.log(ptime(),"READY TO GO ON",mapi+CHUNKSIZE);
+            //console.log(mapChangePromises);
+            await Promise.all(mapChangePromises);
+            //console.log(ptime(),"DONE WITH",mapi+CHUNKSIZE);
+
+
+        }
+
+        // syncData.forEach((map) => {
+
+        //     let mapUpdatePromise = function(resolve,reject) {
+        //         if (map.currgroupi !== map.newgroupi || map.currstage_pr !== map.newstage_pr || map.currb_pr !== map.newb_pr) {
+        //             console.log("ready to go to db",map.name);
+        //             dbSyncSetMapData(map.name,map.newgroupi,map.newstage_pr,map.newb_pr).then((res) => {
+        //                 if (Number.isNaN(Number(res))) {
+
+        //                     if (map.newgroupi !== 0 && map.currgroupi === 0) { //new pr
+        //                         groupNws.push({name: map.name, currgroupi: map.currgroupi, newgroupi: map.newgroupi, str: `<b>${map.name}:</b> ${groupLabels[map.newgroupi]}`});
+        //                     }
+        //                     else if (map.currgroupi > map.newgroupi) { //went down groups
+        //                         groupDns.push({name: map.name, currgroupi: map.currgroupi, newgroupi: map.newgroupi, str: `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`});
+        //                     }
+        //                     else { //went up
+        //                         groupUps.push({name: map.name, currgroupi: map.currgroupi, newgroupi: map.newgroupi, str: `<b>${map.name}:</b> ${groupLabels[map.currgroupi]} 🡒 ${groupLabels[map.newgroupi]}`});
+        //                     }
+
+        //                     //see if we gained or lost any wrcps or beat something new
+        //                     for (let si=0; si<map.newstage_pr; si++) {
+        //                         if (map.newstage_pr[si] === "2" && map.currstage_pr[si] !== "2") { //gained wrcp
+        //                             wrcpUps.push({name: map.name, stage: si+1, str: `<b>${map.name}</b> S${si+1}`});
+        //                         }
+        //                         else if (map.newstage_pr[si] !== "2" && map.currstage_pr[si] === "2") { //lost wrcp
+        //                             wrcpDns.push({name: map.name, stage: si+1, str: `<b>${map.name}</b> S${si+1}`});
+        //                         }
+        //                         else if (map.newgroupi === 0 && map.newstage_pr[si] !== "0" && map.currstage_pr[si] === "0") { //beat only this stage, not the whole map
+        //                             stagePrs.push({name: map.name, stage: si+1, str: `<b>${map.name}</b> S${si+1}`});
+        //                         }
+        //                     }
+
+        //                     //see if we gained or lost any wrbs or beat something new
+        //                     for (let bi=0; bi<map.newbonus_pr; bi++) {
+        //                         if (map.newbonus_pr[bi] === "2" && map.currbonus_pr[bi] !== "2") { //gained wrb
+        //                             wrbUps.push({name: map.name, bonus: bi+1, str: `<b>${map.name}</b> B${bi+1}`});
+        //                         }
+        //                         if (map.newbonus_pr[bi] !== "2" && map.currbonus_pr[si] === "2") { //lost wrb
+        //                             wrbDns.push({name: map.name, bonus: bi+1, str: `<b>${map.name}</b> B${bi+1}`});
+        //                         }
+        //                         else if (map.newbonus_pr[si] !== "0" && map.currbonus_pr[si] === "0") { //beat
+        //                             bonusPrs.push({name: map.name, bonus: bi+1, str: `<b>${map.name}</b> B${si+1}`});
+        //                         }
+        //                     }
+
+        //                     console.log("done with ",map.name);
+        //                     resolve(); return;
+        //                 }
+        //                 else { console.log("ERROR UDPATING MAP", map); resolve(); return; }
+        //             });
+
+        //         }
+        //     }
+
+        //     mapChangePromises.push(new Promise(mapUpdatePromise));
+            
+        // });
+
+
+        // console.log("MADE ALL PROMISES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        // console.log(mapChangePromises, mapChangePromises.length);
+
+        function updateSortGroup(a,b) {
             if (a.currgroupi == b.currgroupi) { //first go on currgroup
                 if (a.newgroupi == b.newgroupi) { //then newgroup
                     return a.name.localeCompare(b.name); //then name
                 }
-                else { return b.newgroupi - a.newgroupi ; }
+                else { return b.newgroupi - a.newgroupi ; } //higher first
             }
             else { return b.currgroupi - a.currgroupi; }
         }
 
-        //once all the groups have changed, display
-        Promise.all(groupChangePromises).then(() => {
-            groupDns.sort(updateSort);
-            groupUps.sort(updateSort);
-            groupNws.sort(updateSort);
+        function updateSortStage(a,b) {
+            if (!a.name.localeCompare(b.name)) { //first go on name
+                return a.stage - b.stage; //then number, 1 first
+            }    
+            else { return a.name.localeCompare(b.name); }
+        }
 
-            let groupDnsStr = '';
-            let groupUpsStr = '';
-            let groupNwsStr = '';
-            groupDns.forEach((map) => { groupDnsStr += `${map.str}<br>`; });
-            groupUps.forEach((map) => { groupUpsStr += `${map.str}<br>`; });
-            groupNws.forEach((map) => { groupNwsStr += `${map.str}<br>`; });
+        function updateSortBonus(a,b) {
+            if (!a.name.localeCompare(b.name)) { //first go on name
+                return a.bonus - b.bonus; //then number, 1 first
+            }    
+            else { return a.name.localeCompare(b.name); }
+        }
 
-            $('#ModalGroupDns').html(groupDnsStr);
-            $('#ModalGroupUps').html(groupUpsStr);
-            $('#ModalGroupNws').html(groupNwsStr);
+        //await Promise.all(mapChangePromises).then(() => {
+        updateSyncMessagePart3();
+        newDataNeedRerender = (anyGroupUpdates || anyStageUpdates || anyBonusUpdates);
 
-            localStorage.setItem('lastSync',new Date());
-            updateLastSyncTimestamp();
-        });
+        //console.log(groupUps, groupDns, groupNws);
+        groupUps.sort(updateSortGroup);
+        groupDns.sort(updateSortGroup);
+        groupNws.sort(updateSortGroup);
+
+        wrcpUps.sort(updateSortStage);
+        wrcpDns.sort(updateSortStage);
+        stagePrs.sort(updateSortStage);
+
+        wrbUps.sort(updateSortBonus);
+        wrbDns.sort(updateSortBonus);
+        bonusPrs.sort(updateSortBonus);
+
+        let groupDnsStr = '';
+        let groupUpsStr = '';
+        let groupNwsStr = '';
+        groupDns.forEach((update) => { groupDnsStr += `${update.str}<br>`; });
+        groupUps.forEach((update) => { groupUpsStr += `${update.str}<br>`; });
+        groupNws.forEach((update) => { groupNwsStr += `${update.str}<br>`; });
+        if (anyGroupUpdates) { $('#ModalSyncGroupsHeader').show(); $('#ModalSyncGroups').show(); }
+        if (groupDnsStr.length > 0) { $('#ModalGroupDns').html(groupDnsStr); $('#ModalGroupDns').show(); }
+        if (groupUpsStr.length > 0) { $('#ModalGroupUps').html(groupUpsStr); $('#ModalGroupUps').show(); }
+        if (groupNwsStr.length > 0) { $('#ModalGroupNws').html(groupNwsStr); $('#ModalGroupNws').show(); }
+
+        let wrcpDnsStr = '';
+        let wrcpUpsStr = '';
+        let stagePrsStr = '';
+        wrcpDns.forEach((update) => { wrcpDnsStr += `${update.str}<br>`; });
+        wrcpUps.forEach((update) => { wrcpUpsStr += `${update.str}<br>`; });
+        stagePrs.forEach((update) => { stagePrsStr += `${update.str}<br>`; });
+        if (anyStageUpdates) { $('#ModalSyncStagesHeader').show(); $('#ModalSyncStages').show(); }
+        if (wrcpDnsStr.length > 0) { $('#ModalStageDns').html(wrcpDnsStr); $('#ModalStageDns').show(); }
+        if (wrcpUpsStr.length > 0) { $('#ModalStageUps').html(wrcpUpsStr); $('#ModalStageUps').show(); }
+        if (stagePrsStr.length > 0) { $('#ModalStageNws').html(stagePrsStr); $('#ModalStageNws').show(); }
+
+        let wrbDnsStr = '';
+        let wrbUpsStr = '';
+        let bonusPrsStr = '';
+        wrbDns.forEach((update) => { wrbDnsStr += `${update.str}<br>`; });
+        wrbUps.forEach((update) => { wrbUpsStr += `${update.str}<br>`; });
+        bonusPrs.forEach((update) => { bonusPrsStr += `${update.str}<br>`; });
+        if (anyBonusUpdates) { $('#ModalSyncBonusesHeader').show(); $('#ModalSyncBonuses').show(); }
+        if (wrbDnsStr.length > 0) { $('#ModalBonusDns').html(wrbDnsStr); $('#ModalBonusDns').show(); }
+        if (wrbUpsStr.length > 0) { $('#ModalBonusUps').html(wrbUpsStr); $('#ModalBonusUps').show(); }
+        if (bonusPrsStr.length > 0) { $('#ModalBonusNws').html(bonusPrsStr); $('#ModalBonusNws').show(); }
+
+        localStorage.setItem('lastSync',new Date());
+        updateLastSyncTimestamp();
+        //});
+
     }
 }
 
