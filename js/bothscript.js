@@ -1144,6 +1144,7 @@ async function getKsfUpdate() {
             //console.log(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`);
             // console.log(ptime(),mi,"START");
             let data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`, 8000);
+            console.log(data);
             // console.log(ptime(),mi,"API");
 
             //get current group
