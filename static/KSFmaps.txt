@@ -901,4 +901,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 900,2025-08-24,surf_affliction,2,Linear,4,10
 901,2025-08-31,surf_tormentor,6,Staged,5,10
 902,2025-09-14,surf_sofia_fix,1,Linear,4,3
-903,2025-09-21,surf_techslop,6,Staged,4,4
+903,2025-09-21,surf_techslop,7,Staged,4,4
