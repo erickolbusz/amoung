@@ -2261,6 +2261,11 @@ function onReadyFunc(callbackFunc,tableID,hasTodoToggle) {
     openDatabase().then(
         (dbconn) => {
             db = dbconn;
+            
+            dbUpdateMapList(MAPLISTURL).then((res) => { if (Array.isArray(res)) {
+                localStorage.setItem('lastDbUpdate',new Date());
+            }});
+
             callbackFunc(tableID);
         },
         (dberr) => {
