@@ -1143,7 +1143,7 @@ async function getKsfUpdate() {
 
             //console.log(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`);
             // console.log(ptime(),mi,"START");
-            let data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`, 8000);
+            let data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`, 15000);
             console.log(data);
             // console.log(ptime(),mi,"API");
 
@@ -2262,11 +2262,10 @@ function onReadyFunc(callbackFunc,tableID,hasTodoToggle) {
         (dbconn) => {
             db = dbconn;
             
-            dbUpdateMapList(MAPLISTURL).then((res) => { if (Array.isArray(res)) {
-                localStorage.setItem('lastDbUpdate',new Date());
-            }});
-
-            callbackFunc(tableID);
+            dbUpdateMapList(MAPLISTURL).then((res) => { 
+                if (Array.isArray(res)) { localStorage.setItem('lastDbUpdate',new Date()); }
+                callbackFunc(tableID);
+            });
         },
         (dberr) => {
             alert(dberr);
