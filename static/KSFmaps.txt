@@ -906,3 +906,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 905,2025-10-05,surf_excess,4,Staged,3,9
 906,2025-10-11,surf_insects,5,Staged,5,4
 907,2025-10-19,surf_frus_njv,3,Linear,5,2
+908,2025-10-26,surf_dune,7,Staged,3,10
