@@ -603,7 +603,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 602,2020-03-12,surf_kloakk,2,Linear,4,4
 603,2020-03-15,surf_like_this,3,Linear,6,4
 604,2020-03-19,surf_fabas,4,Staged,5,4
-605,2020-03-22,surf_pyzire_fix,4,Linear,4,4
+605,2020-03-22,surf_pyzire_retexture,4,Linear,4,4
 606,2020-03-26,surf_beginner2,2,Staged,7,4
 607,2020-03-29,surf_sylvan,3,Linear,5,1
 608,2020-04-04,surf_hyper2,4,Staged,5,1
@@ -914,3 +914,5 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 913,2025-11-30,surf_vitamin_e,4,Staged,5,9
 914,2025-12-07,surf_silent,7,Linear,4,1
 915,2025-12-14,surf_monolith,3,Staged,10,10
+916,2025-12-21,surf_haze,6,Staged,5,6
+917,2025-12-28,surf_sedona,2,Linear,4,10
