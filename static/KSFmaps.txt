@@ -916,3 +916,5 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 915,2025-12-14,surf_monolith,3,Staged,10,10
 916,2025-12-21,surf_haze,6,Staged,5,6
 917,2025-12-28,surf_sedona,2,Linear,4,10
+918,2026-01-04,surf_disappointed,5,Staged,4,2
+919,2026-01-10,surf_centipedes,3,Staged,5,5
