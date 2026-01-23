@@ -642,7 +642,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 641,2020-09-15,surf_celestial,5,Linear,3,3
 642,2020-09-18,surf_replicant,6,Staged,4,1
 643,2020-09-22,surf_salvation,5,Linear,4,2
-644,2020-09-26,surf_shambles,4,Linear,4,3
+644,2020-09-26,surf_shambles,5,Linear,4,3
 645,2020-10-03,surf_crimson,6,Linear,5,3
 646,2020-10-03,surf_glass9,2,Linear,3,0
 647,2020-10-10,surf_cannonball,4,Linear,5,2
