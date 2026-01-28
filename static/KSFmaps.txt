@@ -919,3 +919,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 918,2026-01-04,surf_disappointed,5,Staged,4,2
 919,2026-01-10,surf_centipedes,3,Staged,5,5
 920,2026-01-18,surf_zae,1,Staged,6,3
+921,2026-01-25,surf_anomaly,3,Linear,6,3
