@@ -967,7 +967,7 @@ function makeMapInfoDisplay(data) {
     }
     return dateStr +
         cpstageStr +
-        `Download: <a href="https://ksf.surf/files/surf_${data['mapName']}.rar">ksf.surf</a> | <a href="https://main.fastdl.me/maps/surf_${data['mapName']}.bsp.bz2">fastdl.me</a>`;
+        `Download: <a href="https://ksf.surf/files/surf_${data['mapName']}.zip">ksf.surf</a> | <a href="https://main.fastdl.me/maps/surf_${data['mapName']}.bsp.bz2">fastdl.me</a>`;
 }
 
 function makeBonusDisplay(cell) {
