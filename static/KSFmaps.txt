@@ -651,7 +651,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 650,2020-10-20,surf_polonia,5,Staged,5,2
 651,2020-10-20,surf_slob2_fix,3,Staged,7,0
 652,2020-10-24,surf_revolution_fix,5,Staged,5,3
-653,2020-10-24,surf_secluded,4,Staged,5,4
+653,2020-10-24,surf_secluded,5,Staged,5,4
 654,2020-10-28,surf_axil,4,Staged,3,2
 655,2020-10-28,surf_tranquil,2,Linear,4,3
 656,2020-11-05,surf_fire_eye,4,Linear,2,0
