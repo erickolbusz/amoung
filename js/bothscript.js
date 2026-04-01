@@ -1123,14 +1123,31 @@ async function getKsfUpdate() {
 
 
         let mapsSynced = 0;
-        function updateSyncMessagePart1(mapsSynced) {
+        function updateSyncMessagePart1(mapsSynced, errMaps) {
+            console.log(errMaps, errMaps.length, errMaps.join(", "));
+            if (errMaps.length > 0) { $("#ModalKsfUpdatesError").text(`Failed sync: ${errMaps.join(", ")}`); }
+            else { $("#ModalKsfUpdatesError").text(""); }
             $("#ModalKsfUpdates").text(`Got data for ${mapsSynced} maps...`);
         }
-        function updateSyncMessagePart2() {
-            $("#ModalKsfUpdates").text(`Got data for all maps. Syncing...`);
+        function updateSyncMessagePart2(mapsSynced, errMaps) {
+            if (errMaps.length > 0) {
+                $("#ModalKsfUpdatesError").text(`Failed sync: ${errMaps.join(", ")}`);
+                $("#ModalKsfUpdates").text(`Got data for ${mapsSynced} maps. Syncing...`);
+            }
+            else {
+                $("#ModalKsfUpdatesError").text("");
+                $("#ModalKsfUpdates").text(`Got data for all maps. Syncing...`);
+            }
         }
-        function updateSyncMessagePart3() {
-            $("#ModalKsfUpdates").text(`All maps synced!`);
+        function updateSyncMessagePart3(mapsSynced, errMaps) {
+            if (errMaps.length > 0) {
+                $("#ModalKsfUpdatesError").text(`Failed sync: ${errMaps.join(", ")}`);
+                $("#ModalKsfUpdates").text(`${mapsSynced} maps synced!`);
+            }
+            else {
+                $("#ModalKsfUpdatesError").text("");
+                $("#ModalKsfUpdates").text(`All maps synced!`);
+            }
         }
 
         // syncData = [{name: "mesa_fixed", currgroupi:0, currstage_pr:"", currb_pr:""}];
@@ -1138,78 +1155,95 @@ async function getKsfUpdate() {
     // let start = performance.now();
     // function ptime() { return `T=${performance.now()-start}`; }
 
+        let failedMaps = []; //sync timed out for these
         for (let mi=0; mi<syncData.length; mi++){
             let map = syncData[mi];
 
             //console.log(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`);
             // console.log(ptime(),mi,"START");
-            let data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`, 15000);
-            console.log(data);
-            // console.log(ptime(),mi,"API");
+            let data = null;
+            const TIMEOUTMS = 2000;
+            const TRIESBEFOREGIVEUP = 5;
 
-            //get current group
-            //console.log("YO!", data.records);
-            //console.log("YO!", data.records[0]);
-            if (data.records[0].completions) { //has beaten the map
-                let syncGroup = data.records[0].group;
-                //console.log("YO!", syncGroup);
-                switch (syncGroup) {
-                    case null: //G7
-                        map.newgroupi = groupLabels.indexOf("G7");
-                        //console.log("surely this works)");
-                        break;
-                    case 0: //top or wr
-                        if (data.records[0].rank === 1) { map.newgroupi = groupLabels.indexOf("WR"); } //wr
-                        else { map.newgroupi = groupLabels.indexOf(`R${data.records[0].rank}`); } //top
-                        break;
-                    default: //1, 2, 3, 4, 5, 6 or maybe sam changed the api to troll me
-                        if (!(syncGroup === 1 || syncGroup === 2 || syncGroup === 3 || syncGroup === 4 || syncGroup === 5 || syncGroup === 6)) { $("ModalKsfUpdatesError").text("The API has changed, let me know NOW (group codes have changed)"); }
-                        map.newgroupi = groupLabels.indexOf(`G${syncGroup}`);
-                        break;
-                }
+            //try getting the data
+            for (let ti=0; ti<TRIESBEFOREGIVEUP; ti++) {
+                try { data = await fetchJSON(`https://ksf.surf/api/players/${steamId}/records/map/surf_${map.name}?game=css&mode=0`, TIMEOUTMS); } catch(e) {}
+                // console.log(ti, data);
+                if (data) { break; }
             }
-            else { map.newgroupi = map.currgroupi; }
 
-            //get current stages and bonuses
-            let newstage_pr = []; //easier to .join() an array because strings are immutable
-            let currStage;
-            for (let si=0; si<map.currstage_pr.length; si++) {
-                currStage = data.records.find(x => x.zoneId === si+1);
-                //console.log("???",currStage);
-                if (!currStage) { $("ModalKsfUpdatesError").text("The API has changed, let me know NOW (stage zoneIds have changed)"); }
-                else if (currStage.completions) { //stage has been beaten
-                    if (currStage.rank === 1) { newstage_pr.push("2"); } //wrcp
-                    else { newstage_pr.push("1"); }
+            if (data) {
+                // console.log(ptime(),mi,"API");
+
+                //get current group
+                //console.log("YO!", data.records);
+                //console.log("YO!", data.records[0]);
+                if (data.records[0].completions) { //has beaten the map
+                    let syncGroup = data.records[0].group;
+                    //console.log("YO!", syncGroup);
+                    switch (syncGroup) {
+                        case null: //G7
+                            map.newgroupi = groupLabels.indexOf("G7");
+                            //console.log("surely this works)");
+                            break;
+                        case 0: //top or wr
+                            if (data.records[0].rank === 1) { map.newgroupi = groupLabels.indexOf("WR"); } //wr
+                            else { map.newgroupi = groupLabels.indexOf(`R${data.records[0].rank}`); } //top
+                            break;
+                        default: //1, 2, 3, 4, 5, 6 or maybe sam changed the api to troll me
+                            if (!(syncGroup === 1 || syncGroup === 2 || syncGroup === 3 || syncGroup === 4 || syncGroup === 5 || syncGroup === 6)) { $("ModalKsfUpdatesCritError").text("The API has changed, let me know NOW (group codes have changed)"); }
+                            map.newgroupi = groupLabels.indexOf(`G${syncGroup}`);
+                            break;
+                    }
                 }
-                else { newstage_pr.push("0"); }
-            }
-            map.newstage_pr = newstage_pr.join("");
+                else { map.newgroupi = map.currgroupi; }
 
-            let newb_pr = [];
-            let currBonus;
-            for (let bi=0; bi<map.currb_pr.length; bi++) {
-                // console.log(bi+1+30, map);
-                // console.log(data.records);
-
-                currBonus = data.records.find(x => x.zoneId === bi+1+30);
-                if (!currBonus) { $("ModalKsfUpdatesError").text("The API has changed, let me know NOW (bonus zoneIds have changed)"); }
-                else if (currBonus.completions) { //bonus has been beaten
-                    if (currBonus.rank === 1) { newb_pr.push("2"); } //wrb
-                    else { newb_pr.push("1"); }
+                //get current stages and bonuses
+                let newstage_pr = []; //easier to .join() an array because strings are immutable
+                let currStage;
+                for (let si=0; si<map.currstage_pr.length; si++) {
+                    currStage = data.records.find(x => x.zoneId === si+1);
+                    //console.log("???",currStage);
+                    if (!currStage) { $("ModalKsfUpdatesCritError").text("The API has changed, let me know NOW (stage zoneIds have changed)"); }
+                    else if (currStage.completions) { //stage has been beaten
+                        if (currStage.rank === 1) { newstage_pr.push("2"); } //wrcp
+                        else { newstage_pr.push("1"); }
+                    }
+                    else { newstage_pr.push("0"); }
                 }
-                else { newb_pr.push("0"); }
+                map.newstage_pr = newstage_pr.join("");
+
+                let newb_pr = [];
+                let currBonus;
+                for (let bi=0; bi<map.currb_pr.length; bi++) {
+                    // console.log(bi+1+30, map);
+                    // console.log(data.records);
+
+                    currBonus = data.records.find(x => x.zoneId === bi+1+30);
+                    if (!currBonus) { $("ModalKsfUpdatesCritError").text("The API has changed, let me know NOW (bonus zoneIds have changed)"); }
+                    else if (currBonus.completions) { //bonus has been beaten
+                        if (currBonus.rank === 1) { newb_pr.push("2"); } //wrb
+                        else { newb_pr.push("1"); }
+                    }
+                    else { newb_pr.push("0"); }
+                }
+                map.newb_pr = newb_pr;
+
+
+                mapsSynced++;
+                updateSyncMessagePart1(mapsSynced, failedMaps);
             }
-            map.newb_pr = newb_pr;
-
-
-            mapsSynced++;
-            updateSyncMessagePart1(mapsSynced);
+            else {
+                console.error(`ERROR GETTING DATA FOR surf_${map.name}`);
+                failedMaps.push(map.name);
+                updateSyncMessagePart1(mapsSynced, failedMaps);
+            }
             // console.log(ptime(),mi,"DONE");
             // console.log(map);
         };
 
 
-        updateSyncMessagePart2(mapsSynced);
+        updateSyncMessagePart2(mapsSynced, failedMaps);
 
         // //merge the two datasets
         let groupUps = []; //improved
@@ -1413,7 +1447,7 @@ async function getKsfUpdate() {
         }
 
         //await Promise.all(mapChangePromises).then(() => {
-        updateSyncMessagePart3();
+        updateSyncMessagePart3(mapsSynced, failedMaps);
         newDataNeedRerender = (anyGroupUpdates || anyStageUpdates || anyBonusUpdates);
 
         //console.log(groupUps, groupDns, groupNws);

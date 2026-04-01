@@ -527,9 +527,11 @@ div.dt-container .dt-paging .dt-paging-button.current:hover {
 	font-weight: bold;
 }
 
+#ModalKsfUpdatesCritError {
+	color: red;
+}
 #ModalKsfUpdatesError {
 	color: red;
-	margin: 0;
 }
 #ModalKsfUpdates {
 	margin-bottom: 0.5em;
