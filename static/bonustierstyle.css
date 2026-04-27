@@ -1,0 +1,243 @@
+/* ------------------------------------------------------------------------------------------------------------------------ TABLE CELLS */
+/* --------------------------------------------------------------------- COLORS */
+
+.tier-cell-1, .name-cell-1, .diff-cell-1 {
+/*.tier-cell-1, .name-cell-1 {*/
+	color: var(--tier-1FtCol, #000000);
+	background-color: var(--tier-1BgCol, #eeeeee);
+}
+.tier-cell-2, .name-cell-2, .diff-cell-2 {
+/*.tier-cell-2, .name-cell-2 {*/
+	color: var(--tier-2FtCol, #000000);
+	background-color: var(--tier-2BgCol, #c9daf8);
+}
+.tier-cell-3, .name-cell-3, .diff-cell-3 {
+/*.tier-cell-3, .name-cell-3 {*/
+	color: var(--tier-3FtCol, #000000);
+	background-color: var(--tier-3BgCol, #6d9eeb);
+}
+.tier-cell-4, .name-cell-4, .diff-cell-4 {
+/*.tier-cell-4, .name-cell-4 {*/
+	color: var(--tier-4FtCol, #000000);
+	background-color: var(--tier-4BgCol, #6aa84f);
+}
+.tier-cell-5, .name-cell-5, .diff-cell-5 {
+/*.tier-cell-5, .name-cell-5 {*/
+	color: var(--tier-5FtCol, #000000);
+	background-color: var(--tier-5BgCol, #f1c232);
+}
+.tier-cell-6, .name-cell-6, .diff-cell-6 {
+/*.tier-cell-6, .name-cell-6 {*/
+	color: var(--tier-6FtCol, #000000);
+	background-color: var(--tier-6BgCol, #e69138);
+}
+.tier-cell-7, .name-cell-7, .diff-cell-7 {
+/*.tier-cell-7, .name-cell-7 {*/
+	color: var(--tier-7FtCol, #000000);
+	background-color: var(--tier-7BgCol, #cc0000);
+}
+.tier-cell-8, .name-cell-8, .diff-cell-8 {
+/*.tier-cell-8, .name-cell-8 {*/
+	color: var(--tier-8FtCol, #000000);
+	background-color: var(--tier-8BgCol, #85200c);
+}
+.tier-cell-9, .name-cell-9, .diff-cell-9 {
+/*.tier-cell-9, .name-cell-9 {*/
+	color: var(--tier-9FtCol, #000000);
+	background-color: var(--tier-9BgCol, #000000);
+}
+.tier-cell-10, .name-cell-10, .diff-cell-10 {
+/*.tier-cell-10, .name-cell-10 {*/
+	color: var(--tier-10FtCol, #000000);
+	background-color: var(--tier-10BgCol, #122e5e);	
+}
+
+.diff-cell {
+	color: var(--diff-cellFtCol, #eeeeee);
+	background-color: var(--diff-cellBgCol, #213552);	
+}
+
+
+/* --------------------------------------------------------------------- FORMATTING */
+
+.tier-cell>div, .name-cell>div, .diff-cell>div
+{ /* make cells with text 36px */
+	line-height: 36px !important;
+	height: 36px;
+}
+
+.tier-cell, .name-cell, .diff-cell, { /* to not be highlightable */
+	-webkit-user-select: none; /* Safari */
+	-ms-user-select: none; /* IE 10 and IE 11 */
+	user-select: none; /* Standard syntax */
+}
+
+
+/* ------------------------------------------------------------------------------------------------------------------------ GLOBAL FORMATTING */
+/* --------------------------------------------------------------------- COLORS */
+
+/* global font color */
+body, {
+	color: var(--bodyFtCol, #000000);
+}
+hr {
+	background-color: var(--bodyFtCol, #000000);
+}
+
+
+/* global background color */
+body, .modal {
+	background-color: var(--bodyBgCol, #eeeeee);
+}
+.modal-footer {
+	background-color: var(--bodyBgCol, #eeeeee) !important; /* materialize override */
+}
+
+
+
+
+
+/* --------------------------------------------------------------------- GENERAL */
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+
+hr { /* to color them */
+	height: 1px !important;
+	border: 0px;
+}
+
+#MainDiv {
+	/*padding-top: 1em;*/
+}
+
+#LeftDiv {
+	width: calc(50% - 2em);
+	float: left;
+	margin-top: 1em;
+	margin-left: 2em;
+}
+#RightDiv {
+	width: calc(50% - 2em);
+	float: right;
+	text-align: center;
+	padding-top: 3em;
+	margin-top: 1em;
+	margin-right: 2em;
+	font-size: 24pt;
+	color: var(--bodyFtCol, #000000);
+}
+
+#RightDiv>div>input {
+	font-size: 24pt;
+	color: var(--bodyFtCol, #000000);
+	width: 2em !important;
+}
+
+/* --------------------------------------------------------------------- UI BUTTONS/SEARCH */
+
+#UIDiv {
+	position: absolute;
+	z-index: 1;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+	border-bottom: 1px solid var(--navbarBgCol, #213552);
+	-webkit-box-shadow: 0 1px 0 0 var(--navbarBgCol, #213552);
+	box-shadow: 0 1px 0 0 var(--navbarBgCol, #213552);
+}
+
+#SearchBarBonusTiers {
+	position: relative;
+	display: inline-block;
+	width: calc(30vw);
+	color: var(--bodyFtCol, #000000);
+	height: 2.5rem;
+	padding-left: 0.25em;
+}
+#SearchBarBonusTiers::placeholder{
+	font-style: italic;
+	color: var(--bodyFtCol, #000000);
+}
+#SearchInfo {
+	position: absolute;
+	right: -0.5em;
+	top: 8px;
+	color: var(--bodyFtCol, #000000);
+	background-color: var(--bodyBgCol, #eeeeee);
+	padding-left: 1em;
+	padding-right: 0.5em;
+	font-style: italic;
+}
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------------ TABLE FORMATTING */
+/* --------------------------------------------------------------------- GENERAL */
+
+#TableWrapper { /* applies to both, this is a div I made around the table */
+	position: relative;
+	z-index: 0;
+}
+
+#BonusTiersTable tr td:nth-child(2) {
+	border-right: 4px solid black;
+}
+
+table {
+	/*data-page-length: 25;*/
+}
+td {
+	padding: 0px !important;
+	text-align: center !important;
+	border: 1px solid black;
+}
+th {
+	text-align: center !important;
+	border: 3px solid black !important;
+	border-radius: 0 !important;
+	color: var(--tableHeaderFtCol, #ffffff);
+	background-color: var(--tableHeaderBgCol, #578eda);
+}
+tr { /* to color these over the materialize default */
+	border-bottom: 1px solid var(--bodyFtCol, #000000);
+}
+
+
+/* --------------------------------------------------------------------- HEADER/FOOTER */
+
+/* line at the bottom of table */
+div.dt-container.dt-empty-footer tbody > tr:last-child > * {
+	border-bottom: 1px solid black;
+}
+
+/* hide the info, we copy it to the searchbar */
+#BonusTiersTable_info {
+	display: none;
+}
+
+.dt-paging, .dt-paging-button, div.dt-container .dt-paging .dt-paging-button.disabled, div.dt-container .dt-paging .dt-paging-button.disabled:hover, div.dt-container .dt-paging .dt-paging-button.disabled:active {
+	color: var(--bodyFtCol, #000000) !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button:not(.current):not(.disabled):hover {
+	background-color: rgba(0,0,0,.1) !important; /* give a little alpha on hover */
+	color: var(--bodyFtCol, #000000) !important; /* override */
+	background: none; /* override */
+}
+
+/* current = make it look like navbar */
+div.dt-container .dt-paging .dt-paging-button.current {
+	color: var(--navbarFtCol, #ffffff) !important;
+	background-color: var(--navbarBgCol, #213552);
+}
+div.dt-container .dt-paging .dt-paging-button.current:hover {
+	color: var(--navbarFtCol, #ffffff) !important;
+	background-color: color-mix(in srgb, var(--navbarBgCol, #213552) 90%, #000 10%); /* same 10% alpha on hover */
+}
+
+.dt-end {
+	color: var(--navbarFtCol, #ffffff) !important;
+}

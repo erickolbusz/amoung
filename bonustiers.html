@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>KSF Bonus Tiers</title>   
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script type="module" src="https://unpkg.com/jss@10.10.0/dist/jss.js"></script>
+
+        <link href="https://cdn.datatables.net/2.0.5/css/dataTables.dataTables.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/fixedheader/4.0.1/css/fixedHeader.dataTables.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/keytable/2.12.0/css/keyTable.dataTables.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/staterestore/1.4.1/css/stateRestore.dataTables.css" rel="stylesheet">
+         
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+        <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.js"></script>
+        <script src="https://cdn.datatables.net/fixedheader/4.0.1/js/dataTables.fixedHeader.js"></script>
+        <script src="https://cdn.datatables.net/keytable/2.12.0/js/dataTables.keyTable.js"></script>
+        <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.js"></script>
+        <script src="https://cdn.datatables.net/staterestore/1.4.1/js/dataTables.stateRestore.js"></script>
+        <script src="https://cdn.datatables.net/plug-ins/2.1.2/sorting/natural.js"></script>
+        
+        <link type="text/css" rel="stylesheet" href="static/bonustierstyle.css" /> 
+
+    </head>
+    <body>
+        <div id="LeftDiv">
+            <div id="MainDiv">
+                <div id="UIDiv">
+                    <div id="SearchBarDivBonusTiers">
+                        <input type="text" id="SearchBarBonusTiers" placeholder="search for bonuses" />
+                        <div id="SearchInfo"></div>
+                    </div>
+                </div>
+
+                <div id="TableWrapper">
+                    <table id="BonusTiersTable"></table>
+                </div>
+            </div>
+        </div>
+
+        <div id="RightDiv">
+            <div class="container">
+                <h1 style="margin:0">THIS IS NOT FINAL!!!</h1>
+                <h1 style="margin:0">THIS IS NOT FINAL!!!</h1>
+                <h1 style="margin:0">THIS IS NOT FINAL!!!</h1> <br>
+
+                bonuses per page: <input type="text" id="BonusesPerPageInput" value="20" /> <br><br>
+
+                you can search maps, or tiers with e.g. t=X or t>B
+            </div>
+        </div>
+
+        <script src="js/bonustierscript.js"></script>
+
+    </body>
+</html>

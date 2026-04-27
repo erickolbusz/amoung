@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------------------------------------------------------------- GLOBALS
 const CURRANNOUNCEVERSION = "v3"; //update this when new announcement is made
-const SHOWANNOUNCEMENT = true;
+const SHOWANNOUNCEMENT = false;
 
 const MAPLISTURL = "https://amongus.nyc/static/KSFmaps.csv";
 var db;
