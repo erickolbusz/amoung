@@ -134,6 +134,7 @@ hr { /* to color them */
 	font-size: 24pt;
 	color: var(--bodyFtCol, #000000);
 	width: 2em !important;
+	text-align: center;
 }
 
 /* --------------------------------------------------------------------- UI BUTTONS/SEARCH */
