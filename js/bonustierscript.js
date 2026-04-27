@@ -339,7 +339,7 @@ function renderBonusTable(containerId, bData) {
     //global scope! need to edit page number
     table = new DataTable(`#${containerId}`, {
         stateSave: true, //remembers what page you were on when you reload the page
-        pageLength: entriesPerPage,
+        pageLength: bonusesPerPage,
         columns: cols,
         data: bData,
         autoWidth: false,
