@@ -48,7 +48,7 @@ const darkmodeColorDict = {
     "tier-6FtCol": "#4D4339", //s25 v30
     "tier-6BgCol": "#e69138",
 
-    "tier-7FtCol": "#4D3939", //s25 v30
+    "tier-7FtCol": "#E6ACAC", //s25 v90
     "tier-7BgCol": "#a50000",
 
     "tier-8FtCol": "#CCA199", //s25 v80
