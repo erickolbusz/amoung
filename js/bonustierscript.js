@@ -133,7 +133,6 @@ async function getBonusData() {
                 if (isTierCutoff(thisBInfo)) {
                     firsti = tiercutoffs[NUMTIERS-currtier--]+1;
                     lasti = tiercutoffs[NUMTIERS-currtier];
-                    console.log(thisBInfo,firsti,lasti);
                 }
             }
 
@@ -150,7 +149,6 @@ function isTierCutoff(thisBInfo) {
 }
 
 function getLowMidHigh(firsti,lasti,bi) {
-    console.log(firsti,lasti,bi);
     let frac = (bi-firsti)/(lasti-firsti);
     if (frac < 1/3) { return "high"; }
     if (frac < 2/3) { return "mid"; }
@@ -232,7 +230,6 @@ $('#SearchBarBonusTiers').on('keyup', function () {
         let num = tierContent.indexOf(tier);
 
         return function(rowData) {
-                console.log(rowData.tier, tierLabels.indexOf(rowData.tier), num);
             switch(match.groups.filter) {
                 case ">":
                     return (tierLabels.indexOf(rowData.tier) > num);
