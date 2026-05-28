@@ -928,3 +928,16 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 927,2026-03-13,surf_sirena,8,Staged,5,3
 928,2026-03-27,surf_quake,6,Staged,8,9
 929,2026-04-10,surf_yolo,5,Staged,5,4
+930,2026-05-15,surf_bossfight,3,Linear,3,1
+931,2026-05-15,surf_eternity,1,Staged,3,0
+932,2026-05-15,surf_fairy,2,Linear,4,4
+933,2026-05-15,surf_for_shareholder_value,2,Staged,3,1
+934,2026-05-15,surf_hedron,5,Linear,4,2
+935,2026-05-15,surf_imaginarium,4,Linear,4,3
+936,2026-05-15,surf_lucid,3,Linear,4,4
+937,2026-05-15,surf_oneiric,4,Linear,5,1
+938,2026-05-15,surf_phantasia,3,Linear,6,0
+939,2026-05-15,surf_reverie,2,Linear,4,0
+940,2026-05-15,surf_shape,2,Linear,4,1
+941,2026-05-15,surf_surreal,1,Staged-Linear,5,1
+942,2026-05-15,surf_unrequited,2,Staged,3,0
