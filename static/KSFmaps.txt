@@ -650,7 +650,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 649,2020-10-17,surf_inferno,4,Linear,4,2
 650,2020-10-20,surf_polonia,5,Staged,5,2
 651,2020-10-20,surf_slob2_fix,3,Staged,7,0
-652,2020-10-24,surf_revolution_fix,5,Staged,5,3
+652,2020-10-24,surf_revolution_fix,5,Staged,5,2
 653,2020-10-24,surf_secluded,5,Staged,5,4
 654,2020-10-28,surf_axil,4,Staged,3,2
 655,2020-10-28,surf_tranquil,2,Linear,4,3
@@ -941,3 +941,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 940,2026-05-15,surf_shape,2,Linear,4,1
 941,2026-05-15,surf_surreal,1,Staged-Linear,5,1
 942,2026-05-15,surf_unrequited,2,Staged,3,0
+943,2026-05-28,surf_blackheart,7,Linear,2,3
