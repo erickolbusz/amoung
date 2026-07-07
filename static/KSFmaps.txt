@@ -802,7 +802,7 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 801,2023-06-25,surf_hellenic,3,Linear,3,1
 802,2023-07-02,surf_adrift_fix,4,Linear,5,1
 803,2023-07-16,surf_jagerbomb,4,Staged,4,2
-804,2023-07-22,surf_beyond2,1,Staged,5,2
+804,2023-07-22,surf_beyond2,1,Staged-Linear,5,2
 805,2023-08-26,surf_indecisive,2,Linear,3,1
 806,2023-09-02,surf_barbies_malibu_adventure,4,Staged,5,9
 807,2023-09-15,surf_morbid2,4,Staged,6,2
