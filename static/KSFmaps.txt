@@ -944,3 +944,4 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 943,2026-05-28,surf_blackheart,7,Linear,2,3
 944,2026-06-01,surf_pride,4,Staged,8,8
 945,2026-07-03,surf_corrosion,6,Staged,4,6
+946,2026-07-17,surf_sky_city,6,Staged,7,3
