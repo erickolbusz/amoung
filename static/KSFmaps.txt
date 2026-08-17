@@ -945,3 +945,5 @@ ID,Date Added,Map name,Tier,Type,Stages/Cps,Bonuses
 944,2026-06-01,surf_pride,4,Staged,8,8
 945,2026-07-03,surf_corrosion,6,Staged,4,6
 946,2026-07-17,surf_sky_city,6,Staged,7,3
+947,2026-08-07,surf_liminal,5,Staged-Linear,8,0
+948,2026-08-15,surf_kraken,5,Linear,3,3
